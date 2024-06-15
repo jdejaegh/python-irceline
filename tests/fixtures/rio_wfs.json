@@ -1,0 +1,243 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "no2_hmean.fid-280be381_1901cca3e5c_4c81",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              182000,
+              128000
+            ],
+            [
+              182000,
+              132000
+            ],
+            [
+              186000,
+              132000
+            ],
+            [
+              186000,
+              128000
+            ],
+            [
+              182000,
+              128000
+            ]
+          ]
+        ]
+      },
+      "geometry_name": "the_geom",
+      "properties": {
+        "id": 1102,
+        "timestamp": "2024-06-15T15:00:00Z",
+        "value": 4,
+        "network": "Wallonia"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "no2_hmean.fid-280be381_1901cca3e5c_4c82",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              182000,
+              128000
+            ],
+            [
+              182000,
+              132000
+            ],
+            [
+              186000,
+              132000
+            ],
+            [
+              186000,
+              128000
+            ],
+            [
+              182000,
+              128000
+            ]
+          ]
+        ]
+      },
+      "geometry_name": "the_geom",
+      "properties": {
+        "id": 1102,
+        "timestamp": "2024-06-15T16:00:00Z",
+        "value": 4,
+        "network": "Wallonia"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "pm25_hmean.fid-280be381_1901cca3e5c_4c83",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              182000,
+              128000
+            ],
+            [
+              182000,
+              132000
+            ],
+            [
+              186000,
+              132000
+            ],
+            [
+              186000,
+              128000
+            ],
+            [
+              182000,
+              128000
+            ]
+          ]
+        ]
+      },
+      "geometry_name": "the_geom",
+      "properties": {
+        "id": 1102,
+        "timestamp": "2024-06-15T15:00:00Z",
+        "value": 1,
+        "network": "Wallonia"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "pm25_hmean.fid-280be381_1901cca3e5c_4c84",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              182000,
+              128000
+            ],
+            [
+              182000,
+              132000
+            ],
+            [
+              186000,
+              132000
+            ],
+            [
+              186000,
+              128000
+            ],
+            [
+              182000,
+              128000
+            ]
+          ]
+        ]
+      },
+      "geometry_name": "the_geom",
+      "properties": {
+        "id": 1102,
+        "timestamp": "2024-06-15T16:00:00Z",
+        "value": 1,
+        "network": "Wallonia"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "o3_hmean.fid-280be381_1901cca3e5c_4c85",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              182000,
+              128000
+            ],
+            [
+              182000,
+              132000
+            ],
+            [
+              186000,
+              132000
+            ],
+            [
+              186000,
+              128000
+            ],
+            [
+              182000,
+              128000
+            ]
+          ]
+        ]
+      },
+      "geometry_name": "the_geom",
+      "properties": {
+        "id": 1102,
+        "timestamp": "2024-06-15T15:00:00Z",
+        "value": 74,
+        "network": "Wallonia"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "o3_hmean.fid-280be381_1901cca3e5c_4c86",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              182000,
+              128000
+            ],
+            [
+              182000,
+              132000
+            ],
+            [
+              186000,
+              132000
+            ],
+            [
+              186000,
+              128000
+            ],
+            [
+              182000,
+              128000
+            ]
+          ]
+        ]
+      },
+      "geometry_name": "the_geom",
+      "properties": {
+        "id": 1102,
+        "timestamp": "2024-06-15T16:00:00Z",
+        "value": 71,
+        "network": "Wallonia"
+      }
+    }
+  ],
+  "totalFeatures": 6,
+  "numberMatched": 6,
+  "numberReturned": 6,
+  "timeStamp": "2024-06-15T16:55:03.419Z",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:EPSG::31370"
+    }
+  }
+}

@@ -1,11 +1,11 @@
 import asyncio
 import socket
 from datetime import datetime, timedelta
-from typing import Tuple, List
+from typing import Tuple, List, Dict
 
 import aiohttp
-from aiohttp import ClientResponse
 import async_timeout
+from aiohttp import ClientResponse
 
 from . import project_transform, rio_wfs_base_url
 from .data import RioFeature, FeatureValue
@@ -43,12 +43,19 @@ class IrcelineClient:
                             timestamp: datetime,
                             features: List[RioFeature],
                             position: Tuple[float, float]
-                            ) -> dict:
-        coord = self.epsg_transform(position)
+                            ) -> Dict[RioFeature, FeatureValue]:
+        """
+        Call the WFS API to get the interpolated level of RioFeature
+        :param timestamp: datetime for which to get the data for
+        :param features: list of RioFeature to fetch from the API
+        :param position: decimal degrees pair of coordinates
+        :return: dict with the response (key is RioFeature, value is FeatureValue with actual value and timestamp)
+        """
+
         # Remove one hour from timestamp to handle case where the hour just passed but the data is not yet there
         # (e.g. 5.01 PM, but the most recent data is for 4.00 PM)
         timestamp = timestamp.replace(microsecond=0, second=0, minute=0) - timedelta(hours=1)
-
+        coord = self.epsg_transform(position)
         querystring = {"service": "WFS",
                        "version": "1.3.0",
                        "request": "GetFeature",
@@ -58,15 +65,23 @@ class IrcelineClient:
                                      f"INTERSECTS(the_geom, POINT ({coord[0]} {coord[1]}))"}
 
         r: ClientResponse = await self._api_wrapper(rio_wfs_base_url, querystring)
-        return self.format_result('rio', await r.json())
+        return self.format_result('rio', await r.json(), features)
 
     @staticmethod
-    def format_result(prefix: str, data: dict) -> dict:
+    def format_result(prefix: str, data: dict, features: List[RioFeature]) -> dict:
+        """
+        Format the JSON dict returned by the WFS service into a more practical dict to use with only the latest measure
+        for each feature requested
+        :param prefix: namespace of the feature (e.g. rio), without the colon
+        :param data: JSON dict value as returned by the API
+        :param features: RioFeatures wanted in the final dict
+        :return: reduced dict, key is RioFeature, value is FeatureValue
+        """
         if data.get('type', None) != 'FeatureCollection' or not isinstance(data.get('features', None), list):
             return dict()
-        features = data.get('features', [])
+        features_api = data.get('features', [])
         result = dict()
-        for f in features:
+        for f in features_api:
             if (f.get('id', None) is None or
                     f.get('properties', {}).get('value', None) is None or
                     f.get('properties', {}).get('timestamp', None) is None):
@@ -79,12 +94,20 @@ class IrcelineClient:
                 continue
 
             name = f"{prefix}:{f.get('id').split('.')[0]}"
+            if name not in [f'{f}' for f in features]:
+                continue
             if name not in result or result[name]['timestamp'] < timestamp:
                 result[name] = FeatureValue(timestamp=timestamp, value=value)
 
         return result
 
     async def _api_wrapper(self, url: str, querystring: dict):
+        """
+        Call the URL with the specified query string (GET). Raises exception for >= 400 response code
+        :param url: base URL
+        :param querystring: dict to build the query string
+        :return: response from the client
+        """
 
         headers = {'User-Agent': 'github.com/jdejaegh/python-irceline'}
 
