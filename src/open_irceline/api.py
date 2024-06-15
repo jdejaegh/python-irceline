@@ -1,6 +1,6 @@
 import asyncio
 import socket
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from typing import Tuple, List, Dict
 
 import aiohttp
@@ -40,29 +40,35 @@ class IrcelineClient:
         return round(result[0]), round(result[1])
 
     async def get_rio_value(self,
-                            timestamp: datetime,
+                            timestamp: datetime | date,
                             features: List[RioFeature],
                             position: Tuple[float, float]
                             ) -> Dict[RioFeature, FeatureValue]:
         """
-        Call the WFS API to get the interpolated level of RioFeature
+        Call the WFS API to get the interpolated level of RioFeature. Raises exception upon API error
         :param timestamp: datetime for which to get the data for
         :param features: list of RioFeature to fetch from the API
         :param position: decimal degrees pair of coordinates
         :return: dict with the response (key is RioFeature, value is FeatureValue with actual value and timestamp)
         """
 
-        # Remove one hour from timestamp to handle case where the hour just passed but the data is not yet there
+        # Remove one hour/day from timestamp to handle case where the hour just passed but the data is not yet there
         # (e.g. 5.01 PM, but the most recent data is for 4.00 PM)
-        timestamp = timestamp.replace(microsecond=0, second=0, minute=0) - timedelta(hours=1)
+        if isinstance(timestamp, datetime):
+            timestamp = timestamp.replace(microsecond=0, second=0, minute=0) - timedelta(hours=1)
+        elif isinstance(timestamp, date):
+            timestamp = timestamp - timedelta(days=1)
+
         coord = self.epsg_transform(position)
         querystring = {"service": "WFS",
                        "version": "1.3.0",
                        "request": "GetFeature",
                        "outputFormat": "application/json",
                        "typeName": ",".join(features),
-                       "cql_filter": f"timestamp>='{timestamp.isoformat()}' AND "
-                                     f"INTERSECTS(the_geom, POINT ({coord[0]} {coord[1]}))"}
+                       "cql_filter":
+                           f"{'timestamp' if isinstance(timestamp, datetime) else 'date'}>='{timestamp.isoformat()}'"
+                           f" AND "
+                           f"INTERSECTS(the_geom, POINT ({coord[0]} {coord[1]}))"}
 
         r: ClientResponse = await self._api_wrapper(rio_wfs_base_url, querystring)
         return self.format_result('rio', await r.json(), features)
@@ -82,14 +88,21 @@ class IrcelineClient:
         features_api = data.get('features', [])
         result = dict()
         for f in features_api:
+            props = f.get('properties', {})
             if (f.get('id', None) is None or
-                    f.get('properties', {}).get('value', None) is None or
-                    f.get('properties', {}).get('timestamp', None) is None):
+                    props.get('value', None) is None):
+                continue
+            if (props.get('timestamp', None) is None and
+                    props.get('date', None) is None):
                 continue
 
             try:
-                timestamp = datetime.fromisoformat(f.get('properties', {}).get('timestamp'))
-                value = float(f.get('properties', {}).get('value'))
+                if 'timestamp' in props.keys():
+                    timestamp = datetime.fromisoformat(props.get('timestamp'))
+                else:
+                    # Cut last character as the date is written '2024-06-15Z' which is not ISO compliant
+                    timestamp = date.fromisoformat(props.get('date')[:-1])
+                value = float(props.get('value'))
             except (TypeError, ValueError):
                 continue
 

@@ -1,6 +1,6 @@
 from enum import StrEnum
 from typing import TypedDict
-from datetime import datetime
+from datetime import datetime, date
 
 
 class RioFeature(StrEnum):
@@ -23,5 +23,5 @@ class RioFeature(StrEnum):
 
 
 class FeatureValue(TypedDict):
-    timestamp: datetime | None
+    timestamp: datetime | date
     value: int | float | None
