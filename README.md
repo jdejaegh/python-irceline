@@ -1,5 +1,15 @@
 # Simple asynchronous Python client for IRCEL - CELINE open data
 
+**Work in progress**
+
+Python module to get data from the [IRCEL - CELINE open data](https://irceline.be/en/documentation/open-data)
+
+Target features:
+
+- [X] Get data for real time measurements interpolated
+- [ ] Get forecast data for PM10, PM2.5 and O3
+- [ ] Compute or fetch BelAQI index (observation and forecast)
+- [ ] Maybe: also provide data from the stations and not only interpolation
 
 ## Attribution
 
