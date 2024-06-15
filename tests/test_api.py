@@ -28,7 +28,6 @@ async def test_format_result_hmean():
 
 
 @freeze_time(datetime.fromisoformat("2024-06-15T19:30:09.581Z"))
-
 async def test_format_result_dmean():
     data = get_api_data('rio_wfs_dmean.json')
     result = IrcelineClient.format_result('rio', data,
@@ -41,12 +40,3 @@ async def test_format_result_dmean():
     }
 
     assert result == expected
-
-async def test_run():
-    async with ClientSession() as session:
-        api = IrcelineClient(session)
-        r = await api.get_rio_value(
-            date.today(),
-            [RioFeature.BC_DMEAN, RioFeature.PM10_DMEAN, RioFeature.PM25_DMEAN],
-            (4.8637, 50.4656))
-        print(r)
