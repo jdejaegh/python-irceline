@@ -7,7 +7,7 @@ Python module to get data from the [IRCEL - CELINE open data](https://irceline.b
 Target features:
 
 - [X] Get data for real time measurements interpolated
-- [ ] Get forecast data for PM10, PM2.5 and O3
+- [X] Get forecast data for PM10, PM2.5 and O3
 - [ ] Compute or fetch BelAQI index (observation and forecast)
 - [ ] Maybe: also provide data from the stations and not only interpolation
 
