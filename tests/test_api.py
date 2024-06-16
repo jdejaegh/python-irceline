@@ -61,3 +61,5 @@ def test_parse_capabilities():
                 'rio:bc_dmean'}
 
     assert result == expected
+
+# TODO add new tests for IrcelineForecastClient

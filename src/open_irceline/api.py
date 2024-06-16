@@ -11,9 +11,9 @@ import aiohttp
 import async_timeout
 from aiohttp import ClientResponse
 
-from . import project_transform, rio_wfs_base_url, user_agent, forecast_base_url
+from . import rio_wfs_base_url, user_agent, forecast_base_url
 from .data import RioFeature, FeatureValue, ForecastFeature
-from .utils import SizedDict
+from .utils import SizedDict, epsg_transform, round_coordinates
 
 
 class IrcelineApiError(Exception):
@@ -80,16 +80,6 @@ class IrcelineBaseClient:
 class IrcelineRioClient(IrcelineBaseClient):
     """API client for RIO interpolated IRCEL - CELINE open data"""
 
-    @staticmethod
-    def _epsg_transform(position: Tuple[float, float]) -> tuple:
-        """
-        Convert 'EPSG:4326' coordinates to 'EPSG:31370' coordinates
-        :param position: (x, y) coordinates
-        :return: tuple of int in the EPSG:31370 system
-        """
-        result = project_transform.transform(position[0], position[1])
-        return round(result[0]), round(result[1])
-
     async def get_rio_value(self,
                             timestamp: datetime | date,
                             features: List[RioFeature],
@@ -116,7 +106,7 @@ class IrcelineRioClient(IrcelineBaseClient):
         else:
             raise IrcelineApiError(f"Wrong parameter type for timestamp: {type(timestamp)}")
 
-        coord = self._epsg_transform(position)
+        coord = epsg_transform(position)
         querystring = {"service": "WFS",
                        "version": "1.3.0",
                        "request": "GetFeature",
@@ -207,13 +197,8 @@ class IrcelineRioClient(IrcelineBaseClient):
 class IrcelineForecastClient(IrcelineBaseClient):
     """API client for forecast IRCEL - CELINE open data"""
 
-    @staticmethod
-    def _round_coordinates(x: float, y: float, step=.05):
-        n = 1 / step
-        return round(x * n) / n, round(y * n) / n
-
     async def get_forecast(self, day: date, features: List[ForecastFeature], position: Tuple[float, float]) -> dict:
-        x, y = self._round_coordinates(position[0], position[1])
+        x, y = round_coordinates(position[0], position[1])
 
         result = dict()
 

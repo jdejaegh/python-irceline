@@ -1,4 +1,7 @@
 from collections import OrderedDict
+from typing import Tuple
+
+from src.open_irceline import project_transform
 
 
 class SizedDict(OrderedDict):
@@ -24,3 +27,18 @@ class SizedDict(OrderedDict):
 
     def update(self, __m, **kwargs):
         raise NotImplementedError()
+
+
+def epsg_transform(position: Tuple[float, float]) -> tuple:
+    """
+    Convert 'EPSG:4326' coordinates to 'EPSG:31370' coordinates
+    :param position: (x, y) coordinates
+    :return: tuple of int in the EPSG:31370 system
+    """
+    result = project_transform.transform(position[0], position[1])
+    return round(result[0]), round(result[1])
+
+
+def round_coordinates(x: float, y: float, step=.05):
+    n = 1 / step
+    return round(x * n) / n, round(y * n) / n
