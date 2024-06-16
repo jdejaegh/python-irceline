@@ -2,7 +2,7 @@ from datetime import datetime, date
 
 from freezegun import freeze_time
 
-from src.open_irceline.api import IrcelineClient
+from src.open_irceline.api import IrcelineRioClient
 from src.open_irceline.data import RioFeature, FeatureValue
 from tests.conftest import get_api_data
 
@@ -10,7 +10,7 @@ from tests.conftest import get_api_data
 @freeze_time(datetime.fromisoformat("2024-06-15T16:55:03.419Z"))
 async def test_format_result_hmean():
     data = get_api_data('rio_wfs.json')
-    result = IrcelineClient.format_result('rio', data, [RioFeature.NO2_HMEAN, RioFeature.O3_HMEAN])
+    result = IrcelineRioClient._format_result('rio', data, [RioFeature.NO2_HMEAN, RioFeature.O3_HMEAN])
 
     expected = {
         str(RioFeature.O3_HMEAN): FeatureValue(
@@ -29,8 +29,8 @@ async def test_format_result_hmean():
 @freeze_time(datetime.fromisoformat("2024-06-15T19:30:09.581Z"))
 async def test_format_result_dmean():
     data = get_api_data('rio_wfs_dmean.json')
-    result = IrcelineClient.format_result('rio', data,
-                                          [RioFeature.BC_DMEAN, RioFeature.PM10_DMEAN, RioFeature.PM25_DMEAN])
+    result = IrcelineRioClient._format_result('rio', data,
+                                              [RioFeature.BC_DMEAN, RioFeature.PM10_DMEAN, RioFeature.PM25_DMEAN])
 
     expected = {
         str(RioFeature.BC_DMEAN): FeatureValue(timestamp=date(2024, 6, 15), value=0.1),
@@ -43,7 +43,7 @@ async def test_format_result_dmean():
 
 def test_parse_capabilities():
     with open('tests/fixtures/capabilities.xml', 'r') as xml_file:
-        result = IrcelineClient.parse_capabilities(xml_file.read())
+        result = IrcelineRioClient._parse_capabilities(xml_file.read())
 
     expected = {'rio:so2_anmean_be', 'rio:o3_hmean', 'rio:bc_anmean_vl', 'rio:o3_anmean_be', 'rio:pm10_hmean_vl',
                 'rio:o3_aot40for_be', 'rio:no2_maxhmean', 'rio:pm10_24hmean_1x1', 'rio:o3_aot40veg_5y_be',
