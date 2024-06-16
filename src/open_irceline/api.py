@@ -1,7 +1,8 @@
 import asyncio
 import socket
+from xml.etree import ElementTree
 from datetime import datetime, timedelta, date
-from typing import Tuple, List, Dict
+from typing import Tuple, List, Dict, Set
 
 import aiohttp
 import async_timeout
@@ -72,6 +73,37 @@ class IrcelineClient:
 
         r: ClientResponse = await self._api_wrapper(rio_wfs_base_url, querystring)
         return self.format_result('rio', await r.json(), features)
+
+    async def get_rio_feature_types(self) -> Set[str]:
+        """
+        Fetch the list of possible features from the WFS server
+        :return: set of features available on the WFS server
+        """
+        querystring = {"service": "WFS",
+                       "version": "1.3.0",
+                       "request": "GetCapabilities"}
+        r: ClientResponse = await self._api_wrapper(rio_wfs_base_url, querystring)
+
+        return self.parse_capabilities(await r.text())
+
+    @staticmethod
+    def parse_capabilities(xml_string: str) -> Set[str]:
+        """
+        From an XML string obtained with GetCapabilities, generate a set of feature names
+        :param xml_string: XML string to parse
+        :return: set of FeatureType Names found in the XML document
+        """
+        try:
+            root = ElementTree.fromstring(xml_string)
+        except ElementTree.ParseError:
+            return set()
+        # noinspection HttpUrlsUsage
+        namespaces = {
+            'wfs': 'http://www.opengis.net/wfs',
+        }
+        path = './/wfs:FeatureTypeList/wfs:FeatureType/wfs:Name'
+        feature_type_names = {t.text for t in root.findall(path, namespaces)}
+        return feature_type_names
 
     @staticmethod
     def format_result(prefix: str, data: dict, features: List[RioFeature]) -> dict:

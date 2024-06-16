@@ -1,0 +1,895 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WFS_Capabilities version="1.0.0"
+	xmlns="http://www.opengis.net/wfs"
+	xmlns:rio="https://geo.irceline.be/rio"
+	xmlns:ogc="http://www.opengis.net/ogc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/wfs https://geo.irceline.be/schemas/wfs/1.0.0/WFS-capabilities.xsd">
+	<Service>
+		<Name>WFS</Name>
+		<Title>IRCEL - CELINE - Web Feature Service</Title>
+		<Abstract>This is the reference implementation of WFS 1.0.0 and WFS 1.1.0, supports all WFS operations including Transaction.</Abstract>
+		<Keywords>WFS, WMS, GEOSERVER</Keywords>
+		<OnlineResource>http://geo.irceline.be/wfs</OnlineResource>
+		<Fees>NONE</Fees>
+		<AccessConstraints>https://creativecommons.org/licenses/by/4.0/</AccessConstraints>
+	</Service>
+	<Capability>
+		<Request>
+			<GetCapabilities>
+				<DCPType>
+					<HTTP>
+						<Get onlineResource="https://geo.irceline.be/rio/wfs?request=GetCapabilities"/>
+					</HTTP>
+				</DCPType>
+				<DCPType>
+					<HTTP>
+						<Post onlineResource="https://geo.irceline.be/rio/wfs"/>
+					</HTTP>
+				</DCPType>
+			</GetCapabilities>
+			<DescribeFeatureType>
+				<SchemaDescriptionLanguage>
+					<XMLSCHEMA/>
+				</SchemaDescriptionLanguage>
+				<DCPType>
+					<HTTP>
+						<Get onlineResource="https://geo.irceline.be/rio/wfs?request=DescribeFeatureType"/>
+					</HTTP>
+				</DCPType>
+				<DCPType>
+					<HTTP>
+						<Post onlineResource="https://geo.irceline.be/rio/wfs"/>
+					</HTTP>
+				</DCPType>
+			</DescribeFeatureType>
+			<GetFeature>
+				<ResultFormat>
+					<GML2/>
+					<GML3/>
+					<SHAPE-ZIP/>
+					<CSV/>
+					<JSON/>
+					<KML/>
+				</ResultFormat>
+				<DCPType>
+					<HTTP>
+						<Get onlineResource="https://geo.irceline.be/rio/wfs?request=GetFeature"/>
+					</HTTP>
+				</DCPType>
+				<DCPType>
+					<HTTP>
+						<Post onlineResource="https://geo.irceline.be/rio/wfs"/>
+					</HTTP>
+				</DCPType>
+			</GetFeature>
+			<Transaction>
+				<DCPType>
+					<HTTP>
+						<Get onlineResource="https://geo.irceline.be/rio/wfs?request=Transaction"/>
+					</HTTP>
+				</DCPType>
+				<DCPType>
+					<HTTP>
+						<Post onlineResource="https://geo.irceline.be/rio/wfs"/>
+					</HTTP>
+				</DCPType>
+			</Transaction>
+			<LockFeature>
+				<DCPType>
+					<HTTP>
+						<Get onlineResource="https://geo.irceline.be/rio/wfs?request=LockFeature"/>
+					</HTTP>
+				</DCPType>
+				<DCPType>
+					<HTTP>
+						<Post onlineResource="https://geo.irceline.be/rio/wfs"/>
+					</HTTP>
+				</DCPType>
+			</LockFeature>
+			<GetFeatureWithLock>
+				<ResultFormat>
+					<GML2/>
+				</ResultFormat>
+				<DCPType>
+					<HTTP>
+						<Get onlineResource="https://geo.irceline.be/rio/wfs?request=GetFeatureWithLock"/>
+					</HTTP>
+				</DCPType>
+				<DCPType>
+					<HTTP>
+						<Post onlineResource="https://geo.irceline.be/rio/wfs"/>
+					</HTTP>
+				</DCPType>
+			</GetFeatureWithLock>
+		</Request>
+	</Capability>
+	<FeatureTypeList>
+		<Operations>
+			<Query/>
+			<Insert/>
+			<Update/>
+			<Delete/>
+			<Lock/>
+		</Operations>
+		<FeatureType>
+			<Name>rio:bc_24hmean</Name>
+			<Title>bc_24hmean</Title>
+			<Abstract/>
+			<Keywords>features, bc_24hmean</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.523318845435227" miny="49.47329316743818" maxx="6.500148809344072" maxy="51.54116837031408"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:bc_anmean_be</Name>
+			<Title>bc_anmean_be</Title>
+			<Abstract>Black Carbon (BC) annual mean concentrations - RIO 4x4 model</Abstract>
+			<Keywords>bc_anmean_be, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.524738903305579" miny="49.484357922163724" maxx="6.4577414984593675" maxy="51.5054872376162"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:bc_anmean_vl</Name>
+			<Title>bc_anmean_vl</Title>
+			<Abstract/>
+			<Keywords>bc_anmean_vl, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.5247389033766576" miny="50.67383401296271" maxx="5.935472634484948" maxy="51.50547325376377"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:bc_dmean</Name>
+			<Title>bc_dmean</Title>
+			<Abstract/>
+			<Keywords>bc_dmean, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.523318845435227" miny="49.47329316743818" maxx="6.500148809344072" maxy="51.54116837031408"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:bc_hmean</Name>
+			<Title>bc_hmean</Title>
+			<Abstract>RIO 4x4km</Abstract>
+			<Keywords>bc_hmean, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.523318845435227" miny="49.47329316743818" maxx="6.500148809344072" maxy="51.54116837031408"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:bc_hmean_vl</Name>
+			<Title>bc_hmean_vl</Title>
+			<Abstract/>
+			<Keywords>bc_hmean_vl, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.5247389033766576" miny="50.67383401296271" maxx="5.935472634484948" maxy="51.50547325376377"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:bc_hmean_wl</Name>
+			<Title>bc_hmean_wl</Title>
+			<Abstract/>
+			<Keywords>bc_hmean_wl, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.838754897147102" miny="49.484357922163724" maxx="6.427252582229105" maxy="50.81903875599954"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:no2_19thmax_hmean_be</Name>
+			<Title>no2_19thmax_hmean_be</Title>
+			<Abstract/>
+			<Keywords>features, no2_19thmax_hmean_be</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.524738903305579" miny="49.484357922163724" maxx="6.4577414984593675" maxy="51.5054872376162"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:no2_anmean</Name>
+			<Title>no2_anmean</Title>
+			<Abstract/>
+			<Keywords>features, no2_anmean</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.523318845435227" miny="49.47329316743818" maxx="6.500148809344072" maxy="51.54116837031408"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:no2_anmean_be</Name>
+			<Title>no2_anmean_be</Title>
+			<Abstract>Nitrogen Dioxide (NO2) annual mean concentrations - RIO 4x4 model</Abstract>
+			<Keywords>features, no2_anmean_be</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.524738903305579" miny="49.484357922163724" maxx="6.4577414984593675" maxy="51.5054872376162"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:no2_anmean_vl</Name>
+			<Title>no2_anmean_vl</Title>
+			<Abstract/>
+			<Keywords>no2_anmean_vl, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.5247389033766576" miny="50.67383401296271" maxx="5.935472634484948" maxy="51.50547325376377"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:no2_hmean</Name>
+			<Title>no2_hmean</Title>
+			<Abstract/>
+			<Keywords>no2_hmean, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.523318845435227" miny="49.47329316743818" maxx="6.500148809344072" maxy="51.54116837031408"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:no2_hmean_vl</Name>
+			<Title>no2_hmean_vl</Title>
+			<Abstract/>
+			<Keywords>no2_hmean_vl, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.5247389033766576" miny="50.67383401296271" maxx="5.935472634484948" maxy="51.50547325376377"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:no2_hmean_wl</Name>
+			<Title>no2_hmean_wl</Title>
+			<Abstract/>
+			<Keywords>features, no2_hmean_wl</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.838754897147102" miny="49.484357922163724" maxx="6.427252582229105" maxy="50.81903875599954"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:no2_maxhmean</Name>
+			<Title>no2_maxhmean</Title>
+			<Abstract/>
+			<Keywords>no2_maxhmean, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.523318845435227" miny="49.47329316743818" maxx="6.500148809344072" maxy="51.54116837031408"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:o3_8hmean</Name>
+			<Title>o3_8hmean</Title>
+			<Abstract/>
+			<Keywords>o3_8hmean, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.523318845435227" miny="49.47329316743818" maxx="6.500148809344072" maxy="51.54116837031408"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:o3_anmean</Name>
+			<Title>o3_anmean</Title>
+			<Abstract/>
+			<Keywords>features, o3_anmean</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.523318845435227" miny="49.47329316743818" maxx="6.500148809344072" maxy="51.54116837031408"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:o3_anmean_be</Name>
+			<Title>o3_anmean_be</Title>
+			<Abstract>Ozone (O3) annual mean concentrations - RIO 4x4 model</Abstract>
+			<Keywords>o3_anmean_be, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.524738903305579" miny="49.484357922163724" maxx="6.4577414984593675" maxy="51.5054872376162"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:o3_anmean_vl</Name>
+			<Title>o3_anmean_vl</Title>
+			<Abstract/>
+			<Keywords>o3_anmean_vl, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.5247389033766576" miny="50.67383401296271" maxx="5.935472634484948" maxy="51.50547325376377"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:o3_aot40for_5y_be</Name>
+			<Title>o3_aot40for_5y_be</Title>
+			<Abstract/>
+			<Keywords>features, o3_aot40for_5y_be</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.305640240467027" miny="49.29307273256564" maxx="2.3056543618275662" maxy="49.29308196877696"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:o3_aot40for_be</Name>
+			<Title>o3_aot40for_be</Title>
+			<Abstract/>
+			<Keywords>o3_aot40for_be, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.565437509980505" miny="49.494665363551015" maxx="6.448649665800098" maxy="51.49741371580556"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:o3_aot40veg_5y_be</Name>
+			<Title>o3_aot40veg_5y_be</Title>
+			<Abstract/>
+			<Keywords>o3_aot40veg_5y_be, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.524738903305579" miny="49.484357922163724" maxx="6.4577414984593675" maxy="51.5054872376162"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:o3_aot40veg_be</Name>
+			<Title>o3_aot40veg_be</Title>
+			<Abstract/>
+			<Keywords>o3_aot40veg_be, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.524738903305579" miny="49.484357922163724" maxx="6.4577414984593675" maxy="51.5054872376162"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:o3_aot60_be</Name>
+			<Title>o3_aot60_be</Title>
+			<Abstract/>
+			<Keywords>o3_aot60_be, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.524738903305579" miny="49.484357922163724" maxx="6.4577414984593675" maxy="51.5054872376162"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:o3_hmean</Name>
+			<Title>o3_hmean</Title>
+			<Abstract/>
+			<Keywords>features, o3_hmean</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.523318845435227" miny="49.47329316743818" maxx="6.500148809344072" maxy="51.54116837031408"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:o3_hmean_vl</Name>
+			<Title>o3_hmean_vl</Title>
+			<Abstract/>
+			<Keywords>o3_hmean_vl, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.5247389033766576" miny="50.67383401296271" maxx="5.935472634484948" maxy="51.50547325376377"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:o3_max8hmean</Name>
+			<Title>o3_max8hmean</Title>
+			<Abstract/>
+			<Keywords>features, o3_max8hmean</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.523318845435227" miny="49.47329316743818" maxx="6.500148809344072" maxy="51.54116837031408"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:o3_maxhmean</Name>
+			<Title>o3_maxhmean</Title>
+			<Abstract/>
+			<Keywords>features, o3_maxhmean</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.523318845435227" miny="49.47329316743818" maxx="6.500148809344072" maxy="51.54116837031408"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:o3_net60_3y_be</Name>
+			<Title>o3_net60_3y_be</Title>
+			<Abstract/>
+			<Keywords>o3_net60_3y_be, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.524738903305579" miny="49.484357922163724" maxx="6.4577414984593675" maxy="51.5054872376162"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:o3_net60_be</Name>
+			<Title>o3_net60_be</Title>
+			<Abstract/>
+			<Keywords>o3_net60_be, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.524738903305579" miny="49.484357922163724" maxx="6.4577414984593675" maxy="51.5054872376162"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:pm10_24hmean</Name>
+			<Title>pm10_24hmean</Title>
+			<Abstract/>
+			<Keywords>features, pm10_24hmean</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.523318845435227" miny="49.47329316743818" maxx="6.500148809344072" maxy="51.54116837031408"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:pm10_24hmean_1x1</Name>
+			<Title>pm10_24hmean_1x1</Title>
+			<Abstract/>
+			<Keywords>pm10_24hmean_1x1, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.5243913848668256" miny="49.48277150212372" maxx="6.470123701917761" maxy="51.51422354217197"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:pm10_24hmean_vl</Name>
+			<Title>pm10_24hmean_vl</Title>
+			<Abstract/>
+			<Keywords>features, pm10_24hmean_vl</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.5247389033766576" miny="50.67383401296271" maxx="5.935472634484948" maxy="51.50547325376377"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:pm10_anmean</Name>
+			<Title>pm10_anmean</Title>
+			<Abstract/>
+			<Keywords>pm10_anmean, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.523318845435227" miny="49.47329316743818" maxx="6.500148809344072" maxy="51.54116837031408"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:pm10_anmean_be</Name>
+			<Title>pm10_anmean_be</Title>
+			<Abstract>Particulate Matter (PM10) annual mean concentrations - RIO 4x4 model</Abstract>
+			<Keywords>pm10_anmean_be, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.524738903305579" miny="49.484357922163724" maxx="6.4577414984593675" maxy="51.5054872376162"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:pm10_anmean_vl</Name>
+			<Title>pm10_anmean_vl</Title>
+			<Abstract/>
+			<Keywords>pm10_anmean_vl, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.5247389033766576" miny="50.67383401296271" maxx="5.935472634484948" maxy="51.50547325376377"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:pm10_dmean</Name>
+			<Title>pm10_dmean</Title>
+			<Abstract/>
+			<Keywords>features, pm10_dmean</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.523318845435227" miny="49.47329316743818" maxx="6.500148809344072" maxy="51.54116837031408"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:pm10_excday_be</Name>
+			<Title>pm10_excday_be</Title>
+			<Abstract/>
+			<Keywords>features, pm10_excday_be</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.524738903305579" miny="49.484357922163724" maxx="6.4577414984593675" maxy="51.5054872376162"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:pm10_hmean</Name>
+			<Title>pm10_hmean</Title>
+			<Abstract/>
+			<Keywords>pm10_hmean, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.523318845435227" miny="49.47329316743818" maxx="6.500148809344072" maxy="51.54116837031408"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:pm10_hmean_1x1</Name>
+			<Title>pm10_hmean_1x1</Title>
+			<Abstract/>
+			<Keywords>features, pm10_hmean_1x1</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.5243913848668256" miny="49.48277150212372" maxx="6.470123701917761" maxy="51.51422354217197"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:pm10_hmean_vl</Name>
+			<Title>pm10_hmean_vl</Title>
+			<Abstract/>
+			<Keywords>features, pm10_hmean_vl</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.5247389033766576" miny="50.67383401296271" maxx="5.935472634484948" maxy="51.50547325376377"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:pm10_hmean_wl</Name>
+			<Title>pm10_hmean_wl</Title>
+			<Abstract/>
+			<Keywords>features, pm10_hmean_wl</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.838754897147102" miny="49.484357922163724" maxx="6.427252582229105" maxy="50.81903875599954"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:pm25_24hmean</Name>
+			<Title>pm25_24hmean</Title>
+			<Abstract/>
+			<Keywords>features, pm25_24hmean</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.523318845435227" miny="49.47329316743818" maxx="6.500148809344072" maxy="51.54116837031408"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:pm25_24hmean_vl</Name>
+			<Title>pm25_24hmean_vl</Title>
+			<Abstract/>
+			<Keywords>pm25_24hmean_vl, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.5247389033766576" miny="50.67383401296271" maxx="5.935472634484948" maxy="51.50547325376377"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:pm25_anmean</Name>
+			<Title>pm25_anmean</Title>
+			<Abstract/>
+			<Keywords>pm25_anmean, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.523318845435227" miny="49.47329316743818" maxx="6.500148809344072" maxy="51.54116837031408"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:pm25_anmean_be</Name>
+			<Title>pm25_anmean_be</Title>
+			<Abstract>Particulate Matter (PM2.5) annual mean concentrations - RIO 4x4 model</Abstract>
+			<Keywords>pm25_anmean_be, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.524738903305579" miny="49.484357922163724" maxx="6.4577414984593675" maxy="51.5054872376162"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:pm25_anmean_vl</Name>
+			<Title>pm25_anmean_vl</Title>
+			<Abstract/>
+			<Keywords>pm25_anmean_vl, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.5247389033766576" miny="50.67383401296271" maxx="5.935472634484948" maxy="51.50547325376377"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:pm25_dmean</Name>
+			<Title>pm25_dmean</Title>
+			<Abstract/>
+			<Keywords>features, pm25_dmean</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.523318845435227" miny="49.47329316743818" maxx="6.500148809344072" maxy="51.54116837031408"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:pm25_hmean</Name>
+			<Title>pm25_hmean</Title>
+			<Abstract/>
+			<Keywords>pm25_hmean, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.523318845435227" miny="49.47329316743818" maxx="6.500148809344072" maxy="51.54116837031408"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:pm25_hmean_1x1</Name>
+			<Title>pm25_hmean_1x1</Title>
+			<Abstract/>
+			<Keywords>features, pm25_hmean_1x1</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.5243913848668256" miny="49.48277150212372" maxx="6.470123701917761" maxy="51.51422354217197"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:pm25_hmean_vl</Name>
+			<Title>pm25_hmean_vl</Title>
+			<Abstract/>
+			<Keywords>pm25_hmean_vl, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.5247389033766576" miny="50.67383401296271" maxx="5.935472634484948" maxy="51.50547325376377"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:rio_grid_1x1</Name>
+			<Title>rio_grid_1x1</Title>
+			<Abstract/>
+			<Keywords>features, rio_grid_1x1</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.504265746336146" miny="49.47237019519153" maxx="6.490302147983144" maxy="51.5242892030288"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:rio_grid_4x4</Name>
+			<Title>rio_grid_4x4</Title>
+			<Abstract/>
+			<Keywords>rio_grid_4x4, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.5030299683863957" miny="49.46270523098982" maxx="6.520497458126267" maxy="51.551413636150066"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:rio_grid_4x4_be</Name>
+			<Title>rio_grid_4x4_be</Title>
+			<Abstract/>
+			<Keywords>features, rio_grid_4x4_clip_be</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.504679109203412" miny="49.47401009520256" maxx="6.477851849420886" maxy="51.515502352400205"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:rio_grid_4x4_centroids</Name>
+			<Title>rio_grid_4x4_centroids</Title>
+			<Abstract/>
+			<Keywords>rio_grid_4x4_centroids, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.5528299672743198" miny="49.49175858330122" maxx="6.470531532878444" maxy="51.52319409541222"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:so2_25thmax_hmean_be</Name>
+			<Title>so2_25thmax_hmean_be</Title>
+			<Abstract/>
+			<Keywords>so2_25thmax_hmean_be, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.524738903305579" miny="49.484357922163724" maxx="6.4577414984593675" maxy="51.5054872376162"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:so2_anmean_be</Name>
+			<Title>so2_anmean_be</Title>
+			<Abstract/>
+			<Keywords>so2_anmean_be, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.524738903305579" miny="49.484357922163724" maxx="6.4577414984593675" maxy="51.5054872376162"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:so2_anmean_vl</Name>
+			<Title>so2_anmean_vl</Title>
+			<Abstract/>
+			<Keywords>so2_anmean_vl, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.5247389033766576" miny="50.67383401296271" maxx="5.935472634484948" maxy="51.50547325376377"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:so2_hmean</Name>
+			<Title>so2_hmean</Title>
+			<Abstract/>
+			<Keywords>so2_hmean, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.523318845435227" miny="49.47329316743818" maxx="6.500148809344072" maxy="51.54116837031408"/>
+		</FeatureType>
+		<FeatureType>
+			<Name>rio:so2_hmean_vl</Name>
+			<Title>so2_hmean_vl</Title>
+			<Abstract/>
+			<Keywords>so2_hmean_vl, features</Keywords>
+			<SRS>EPSG:31370</SRS>
+			<LatLongBoundingBox minx="2.5247389033766576" miny="50.67383401296271" maxx="5.935472634484948" maxy="51.50547325376377"/>
+		</FeatureType>
+	</FeatureTypeList>
+	<ogc:Filter_Capabilities>
+		<ogc:Spatial_Capabilities>
+			<ogc:Spatial_Operators>
+				<ogc:Disjoint/>
+				<ogc:Equals/>
+				<ogc:DWithin/>
+				<ogc:Beyond/>
+				<ogc:Intersect/>
+				<ogc:Touches/>
+				<ogc:Crosses/>
+				<ogc:Within/>
+				<ogc:Contains/>
+				<ogc:Overlaps/>
+				<ogc:BBOX/>
+			</ogc:Spatial_Operators>
+		</ogc:Spatial_Capabilities>
+		<ogc:Scalar_Capabilities>
+			<ogc:Logical_Operators/>
+			<ogc:Comparison_Operators>
+				<ogc:Simple_Comparisons/>
+				<ogc:Between/>
+				<ogc:Like/>
+				<ogc:NullCheck/>
+			</ogc:Comparison_Operators>
+			<ogc:Arithmetic_Operators>
+				<ogc:Simple_Arithmetic/>
+				<ogc:Functions>
+					<ogc:Function_Names>
+						<ogc:Function_Name nArgs="1">abs</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">abs_2</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">abs_3</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">abs_4</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">acos</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">AddCoverages</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-1">Affine</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">Aggregate</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">And</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">Area</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">area2</ogc:Function_Name>
+						<ogc:Function_Name nArgs="3">AreaGrid</ogc:Function_Name>
+						<ogc:Function_Name nArgs="0">array</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">asin</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">atan</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">atan2</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">attributeCount</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-1">BandMerge</ogc:Function_Name>
+						<ogc:Function_Name nArgs="0">bands</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">BandSelect</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-6">BarnesSurface</ogc:Function_Name>
+						<ogc:Function_Name nArgs="3">between</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">boundary</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">boundaryDimension</ogc:Function_Name>
+						<ogc:Function_Name nArgs="0">boundedBy</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">Bounds</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">buffer</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">BufferFeatureCollection</ogc:Function_Name>
+						<ogc:Function_Name nArgs="3">bufferWithSegments</ogc:Function_Name>
+						<ogc:Function_Name nArgs="7">Categorize</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">ceil</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">Centroid</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">classify</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">ClassifyByRange</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">Clip</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">CollectGeometries</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">Collection_Average</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">Collection_Bounds</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">Collection_Count</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">Collection_Max</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">Collection_Median</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">Collection_Min</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">Collection_Nearest</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">Collection_Sum</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">Collection_Unique</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">Concatenate</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">contains</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-1">Contour</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-1">contrast</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">convert</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">convexHull</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-1">ConvolveCoverage</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">cos</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">Count</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-1">CoverageClassStats</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">CropCoverage</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">crosses</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">darken</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">dateDifference</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">dateFormat</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">dateParse</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">desaturate</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">difference</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">dimension</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">disjoint</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">disjoint3D</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">distance</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">distance3D</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">double2bool</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">endAngle</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">endPoint</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">env</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">envelope</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">EqualArea</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">EqualInterval</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">equalsExact</ogc:Function_Name>
+						<ogc:Function_Name nArgs="3">equalsExactTolerance</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">equalTo</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">exp</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">exteriorRing</ogc:Function_Name>
+						<ogc:Function_Name nArgs="3">Feature</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">FeatureClassStats</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">floor</ogc:Function_Name>
+						<ogc:Function_Name nArgs="0">footprints</ogc:Function_Name>
+						<ogc:Function_Name nArgs="0">geometry</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">geometryType</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">geomFromWKT</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">geomLength</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">getGeometryN</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">getX</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">getY</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">getz</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">grayscale</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">greaterEqualThan</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">greaterThan</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-3">Grid</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-4">GroupCandidateSelection</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-5">Heatmap</ogc:Function_Name>
+						<ogc:Function_Name nArgs="3">hsl</ogc:Function_Name>
+						<ogc:Function_Name nArgs="0">id</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">IEEEremainder</ogc:Function_Name>
+						<ogc:Function_Name nArgs="3">if_then_else</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">in</ogc:Function_Name>
+						<ogc:Function_Name nArgs="11">in10</ogc:Function_Name>
+						<ogc:Function_Name nArgs="3">in2</ogc:Function_Name>
+						<ogc:Function_Name nArgs="4">in3</ogc:Function_Name>
+						<ogc:Function_Name nArgs="5">in4</ogc:Function_Name>
+						<ogc:Function_Name nArgs="6">in5</ogc:Function_Name>
+						<ogc:Function_Name nArgs="7">in6</ogc:Function_Name>
+						<ogc:Function_Name nArgs="8">in7</ogc:Function_Name>
+						<ogc:Function_Name nArgs="9">in8</ogc:Function_Name>
+						<ogc:Function_Name nArgs="10">in9</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">inArray</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">InclusionFeatureCollection</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">int2bbool</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">int2ddouble</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">interiorPoint</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">interiorRingN</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-5">Interpolate</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">intersection</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">IntersectionFeatureCollection</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">intersects</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">intersects3D</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">isCached</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">isClosed</ogc:Function_Name>
+						<ogc:Function_Name nArgs="0">isCoverage</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">isEmpty</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">isInstanceOf</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">isLike</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">isNull</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">isometric</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">isRing</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">isSimple</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">isValid</ogc:Function_Name>
+						<ogc:Function_Name nArgs="3">isWithinDistance</ogc:Function_Name>
+						<ogc:Function_Name nArgs="3">isWithinDistance3D</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">Jenks</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-1">Jiffle</ogc:Function_Name>
+						<ogc:Function_Name nArgs="3">jsonArrayContains</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">jsonPointer</ogc:Function_Name>
+						<ogc:Function_Name nArgs="0">language</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">lapply</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">length</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">lessEqualThan</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">lessThan</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">lighten</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-1">list</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">listMultiply</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">litem</ogc:Function_Name>
+						<ogc:Function_Name nArgs="3">literate</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">log</ogc:Function_Name>
+						<ogc:Function_Name nArgs="4">LRSGeocode</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-4">LRSMeasure</ogc:Function_Name>
+						<ogc:Function_Name nArgs="5">LRSSegment</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">mapGet</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">max</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">max_2</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">max_3</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">max_4</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">min</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">min_2</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">min_3</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">min_4</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">mincircle</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">minimumdiameter</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">minrectangle</ogc:Function_Name>
+						<ogc:Function_Name nArgs="3">mix</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">modulo</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">MultiplyCoverages</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">Nearest</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">NormalizeCoverage</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">not</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">notEqualTo</ogc:Function_Name>
+						<ogc:Function_Name nArgs="0">now</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">numberFormat</ogc:Function_Name>
+						<ogc:Function_Name nArgs="5">numberFormat2</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">numGeometries</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">numInteriorRing</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">numPoints</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">octagonalenvelope</ogc:Function_Name>
+						<ogc:Function_Name nArgs="3">offset</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">Or</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">overlaps</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-1">parameter</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">parseBoolean</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">parseDouble</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">parseInt</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">parseLong</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">pgNearest</ogc:Function_Name>
+						<ogc:Function_Name nArgs="0">pi</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-1">PointBuffers</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">pointN</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-7">PointStacker</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-1">PolygonExtraction</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">pow</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">property</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">PropertyExists</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">Quantile</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-1">Query</ogc:Function_Name>
+						<ogc:Function_Name nArgs="0">random</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-1">RangeLookup</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-1">RasterAsPointCollection</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">RasterZonalStatistics</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-6">RasterZonalStatistics2</ogc:Function_Name>
+						<ogc:Function_Name nArgs="5">Recode</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">RectangularClip</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">relate</ogc:Function_Name>
+						<ogc:Function_Name nArgs="3">relatePattern</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-1">Reproject</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-3">rescaleToPixels</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">rint</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">round</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">round_2</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">roundDouble</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">saturate</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-5">ScaleCoverage</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">setCRS</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">shade</ogc:Function_Name>
+						<ogc:Function_Name nArgs="3">Simplify</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">sin</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">size</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">Snap</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">spin</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">sqrt</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">StandardDeviation</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">startAngle</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">startPoint</ogc:Function_Name>
+						<ogc:Function_Name nArgs="4">strAbbreviate</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">strCapitalize</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">strConcat</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">strDefaultIfBlank</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">strEndsWith</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">strEqualsIgnoreCase</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">strIndexOf</ogc:Function_Name>
+						<ogc:Function_Name nArgs="4">stringTemplate</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">strLastIndexOf</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">strLength</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">strMatches</ogc:Function_Name>
+						<ogc:Function_Name nArgs="3">strPosition</ogc:Function_Name>
+						<ogc:Function_Name nArgs="4">strReplace</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">strStartsWith</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">strStripAccents</ogc:Function_Name>
+						<ogc:Function_Name nArgs="3">strSubstring</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">strSubstringStart</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">strToLowerCase</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">strToUpperCase</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">strTrim</ogc:Function_Name>
+						<ogc:Function_Name nArgs="3">strTrim2</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-1">strURLEncode</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">StyleCoverage</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">symDifference</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">tan</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">tint</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">toDegrees</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">toRadians</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">touches</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">toWKT</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">Transform</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-1">TransparencyFill</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">union</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">UnionFeatureCollection</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">Unique</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-2">UniqueInterval</ogc:Function_Name>
+						<ogc:Function_Name nArgs="-4">VectorToRaster</ogc:Function_Name>
+						<ogc:Function_Name nArgs="3">VectorZonalStatistics</ogc:Function_Name>
+						<ogc:Function_Name nArgs="1">vertices</ogc:Function_Name>
+						<ogc:Function_Name nArgs="2">within</ogc:Function_Name>
+					</ogc:Function_Names>
+				</ogc:Functions>
+			</ogc:Arithmetic_Operators>
+		</ogc:Scalar_Capabilities>
+	</ogc:Filter_Capabilities>
+</WFS_Capabilities>
