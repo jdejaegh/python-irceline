@@ -10,6 +10,7 @@ from aiohttp import ClientResponse
 
 from . import project_transform, rio_wfs_base_url, user_agent
 from .data import RioFeature, FeatureValue
+from .utils import SizedDict
 
 
 class IrcelineApiError(Exception):
@@ -19,8 +20,9 @@ class IrcelineApiError(Exception):
 class IrcelineBaseClient:
     def __init__(self, session: aiohttp.ClientSession) -> None:
         self._session = session
+        self._cache = SizedDict(20)
 
-    async def _api_wrapper(self, url: str, querystring: dict, method: str = 'GET'):
+    async def _api_wrapper(self, url: str, querystring: dict = None, headers: dict = None, method: str = 'GET'):
         """
         Call the URL with the specified query string. Raises exception for >= 400 response code
         :param url: base URL
@@ -28,7 +30,10 @@ class IrcelineBaseClient:
         :return: response from the client
         """
 
-        headers = {'User-Agent': user_agent}
+        if headers is None:
+            headers = dict()
+        if 'User-Agent' not in headers:
+            headers |= {'User-Agent': user_agent}
 
         try:
             async with async_timeout.timeout(60):
@@ -47,6 +52,20 @@ class IrcelineBaseClient:
             raise IrcelineApiError("Error fetching information") from exception
         except Exception as exception:  # pylint: disable=broad-except
             raise IrcelineApiError(f"Something really wrong happened! {exception}") from exception
+
+    async def _api_cached_wrapper(self, url: str, method: str = 'GET'):
+        if url in self._cache:
+            headers = {"If-None-Match": f'{self._cache.get(url, {}).get("etag")}'}
+        else:
+            headers = None
+
+        r: ClientResponse = await self._api_wrapper(url, headers=headers, method=method)
+        if r.status == 304:
+            return self._cache.get(url, {}).get("response")
+        elif 'ETag' in r.headers:
+            self._cache[url] = {'etag': r.headers['ETag'],
+                                'response': r}
+        return r
 
 
 class IrcelineRioClient(IrcelineBaseClient):

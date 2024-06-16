@@ -12,11 +12,15 @@ class SizedDict(OrderedDict):
         super().__setitem__(key, value)
         self.move_to_end(key)
         if len(self) > self._size:
-            self.popitem(False)
+            print('drop', self.popitem(False)[0])
 
     def __getitem__(self, key):
-        super().__getitem__(key)
         self.move_to_end(key)
+        return super().__getitem__(key)
+
+    def get(self, __key, __default=None):
+        self.move_to_end(__key)
+        return super().get(__key, __default)
 
     def update(self, __m, **kwargs):
         raise NotImplementedError()

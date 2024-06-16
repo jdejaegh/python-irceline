@@ -14,14 +14,14 @@ def test_size_dict():
 
     s_dict['f'] = 6
     assert 'a' not in s_dict
-    assert 'f' in s_dict
+    assert s_dict['f'] == 6
     assert len(s_dict) == 5
 
     s_dict['b'] = 42
     s_dict['g'] = 7
-    assert 'f' in s_dict
-    assert 'g' in s_dict
-    assert 'b' in s_dict
+    assert s_dict['f'] == 6
+    assert s_dict['g'] == 7
+    assert s_dict['b'] == 42
     assert 'c' not in s_dict
     assert len(s_dict) == 5
 
