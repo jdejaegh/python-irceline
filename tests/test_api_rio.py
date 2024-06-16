@@ -26,6 +26,26 @@ async def test_format_result_hmean():
     assert result == expected
 
 
+@freeze_time(datetime.fromisoformat("2024-06-15T16:55:03.419Z"))
+async def test_format_result_hmean_with_error():
+    data = get_api_data('rio_wfs_with_errors.json')
+    result = IrcelineRioClient._format_result('rio', data,
+                                              [RioFeature.NO2_HMEAN, RioFeature.O3_HMEAN, RioFeature.PM25_HMEAN])
+
+    expected = {
+        str(RioFeature.O3_HMEAN): FeatureValue(
+            timestamp=datetime.fromisoformat("2024-06-15T16:00:00Z"),
+            value=71
+        ),
+        str(RioFeature.PM25_HMEAN): FeatureValue(
+            timestamp=datetime.fromisoformat("2024-06-15T15:00:00Z"),
+            value=1
+        )
+    }
+
+    assert result == expected
+
+
 @freeze_time(datetime.fromisoformat("2024-06-15T19:30:09.581Z"))
 async def test_format_result_dmean():
     data = get_api_data('rio_wfs_dmean.json')
@@ -42,8 +62,8 @@ async def test_format_result_dmean():
 
 
 def test_parse_capabilities():
-    with open('tests/fixtures/capabilities.xml', 'r') as xml_file:
-        result = IrcelineRioClient._parse_capabilities(xml_file.read())
+    data = get_api_data('capabilities.xml', plain=True)
+    result = IrcelineRioClient._parse_capabilities(data)
 
     expected = {'rio:so2_anmean_be', 'rio:o3_hmean', 'rio:bc_anmean_vl', 'rio:o3_anmean_be', 'rio:pm10_hmean_vl',
                 'rio:o3_aot40for_be', 'rio:no2_maxhmean', 'rio:pm10_24hmean_1x1', 'rio:o3_aot40veg_5y_be',
@@ -62,4 +82,7 @@ def test_parse_capabilities():
 
     assert result == expected
 
-# TODO add new tests for IrcelineForecastClient
+
+def test_parse_capabilities_with_error():
+    result = IrcelineRioClient._parse_capabilities("wow there no valid XML")
+    assert result == set()

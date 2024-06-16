@@ -253,6 +253,6 @@ class IrcelineForecastClient(IrcelineBaseClient):
             try:
                 if x == float(row[1]) and y == float(row[2]):
                     return float(row[3])
-            except ValueError:
+            except (ValueError, IndexError):
                 continue
         return None
