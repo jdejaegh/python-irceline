@@ -13,15 +13,7 @@ from .data import RioFeature, FeatureValue
 
 
 class IrcelineApiError(Exception):
-    """Exception to indicate a general API error."""
-
-
-class IrcelineApiCommunicationError(IrcelineApiError):
-    """Exception to indicate a communication error."""
-
-
-class IrcelineApiParametersError(IrcelineApiError):
-    """Exception to indicate a parameter error."""
+    """Exception to indicate an API error."""
 
 
 class IrcelineClient:
@@ -74,7 +66,7 @@ class IrcelineClient:
         r: ClientResponse = await self._api_wrapper(rio_wfs_base_url, querystring)
         return self.format_result('rio', await r.json(), features)
 
-    async def get_rio_feature_types(self) -> Set[str]:
+    async def get_rio_capabilities(self) -> Set[str]:
         """
         Fetch the list of possible features from the WFS server
         :return: set of features available on the WFS server
@@ -168,8 +160,8 @@ class IrcelineClient:
                 return response
 
         except asyncio.TimeoutError as exception:
-            raise IrcelineApiCommunicationError("Timeout error fetching information") from exception
+            raise IrcelineApiError("Timeout error fetching information") from exception
         except (aiohttp.ClientError, socket.gaierror) as exception:
-            raise IrcelineApiCommunicationError("Error fetching information") from exception
+            raise IrcelineApiError("Error fetching information") from exception
         except Exception as exception:  # pylint: disable=broad-except
             raise IrcelineApiError(f"Something really wrong happened! {exception}") from exception
