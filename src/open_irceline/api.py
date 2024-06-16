@@ -90,6 +90,7 @@ class IrcelineClient:
         except ElementTree.ParseError:
             return set()
         # noinspection HttpUrlsUsage
+        # We never connect to the URL, it is just the namespace in the XML
         namespaces = {
             'wfs': 'http://www.opengis.net/wfs',
         }
