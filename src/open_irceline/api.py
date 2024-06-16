@@ -49,8 +49,14 @@ class IrcelineClient:
         # (e.g. 5.01 PM, but the most recent data is for 4.00 PM)
         if isinstance(timestamp, datetime):
             timestamp = timestamp.replace(microsecond=0, second=0, minute=0) - timedelta(hours=1)
+            timestamp = timestamp.isoformat()
+            key = 'timestamp'
         elif isinstance(timestamp, date):
             timestamp = timestamp - timedelta(days=1)
+            timestamp = timestamp.isoformat()
+            key = 'date'
+        else:
+            raise IrcelineApiError(f"Wrong parameter type for timestamp: {type(timestamp)}")
 
         coord = self.epsg_transform(position)
         querystring = {"service": "WFS",
@@ -59,7 +65,7 @@ class IrcelineClient:
                        "outputFormat": "application/json",
                        "typeName": ",".join(features),
                        "cql_filter":
-                           f"{'timestamp' if isinstance(timestamp, datetime) else 'date'}>='{timestamp.isoformat()}'"
+                           f"{key}>='{timestamp}'"
                            f" AND "
                            f"INTERSECTS(the_geom, POINT ({coord[0]} {coord[1]}))"}
 
