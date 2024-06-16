@@ -18,9 +18,9 @@ class IrcelineApiError(Exception):
 
 
 class IrcelineBaseClient:
-    def __init__(self, session: aiohttp.ClientSession) -> None:
+    def __init__(self, session: aiohttp.ClientSession, cache_size: int = 20) -> None:
         self._session = session
-        self._cache = SizedDict(20)
+        self._cache = SizedDict(cache_size)
 
     async def _api_wrapper(self, url: str, querystring: dict = None, headers: dict = None, method: str = 'GET'):
         """
@@ -54,6 +54,12 @@ class IrcelineBaseClient:
             raise IrcelineApiError(f"Something really wrong happened! {exception}") from exception
 
     async def _api_cached_wrapper(self, url: str, method: str = 'GET'):
+        """
+        Call the API but uses cache based on the ETag value to avoid repeated calls for the same ressource
+        :param url: url to fetch
+        :param method: HTTP method (default to GET)
+        :return: response from the client
+        """
         if url in self._cache:
             headers = {"If-None-Match": f'{self._cache.get(url, {}).get("etag")}'}
         else:
