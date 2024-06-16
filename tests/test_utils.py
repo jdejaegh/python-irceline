@@ -1,6 +1,7 @@
 from src.open_irceline.utils import SizedDict, round_coordinates, epsg_transform
 import pytest
 
+
 def test_size_dict():
     s_dict = SizedDict(5)
     assert len(s_dict) == 0

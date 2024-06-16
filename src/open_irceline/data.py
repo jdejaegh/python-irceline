@@ -34,5 +34,6 @@ class ForecastFeature(StrEnum):
 
 
 class FeatureValue(TypedDict):
+    # Timestamp at which the value was computed
     timestamp: datetime | date
     value: int | float | None

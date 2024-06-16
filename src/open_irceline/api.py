@@ -197,7 +197,20 @@ class IrcelineRioClient(IrcelineBaseClient):
 class IrcelineForecastClient(IrcelineBaseClient):
     """API client for forecast IRCEL - CELINE open data"""
 
-    async def get_forecast(self, day: date, features: List[ForecastFeature], position: Tuple[float, float]) -> dict:
+    async def get_forecasts(self,
+                            day: date,
+                            features: List[ForecastFeature],
+                            position: Tuple[float, float]
+                            ) -> Dict[Tuple[ForecastFeature, date], FeatureValue]:
+        """
+        Get forecasted concentrations for the given features at the given position. The forecasts are downloaded for
+        the specified day and the 4 next days as well
+        :param day: date at which the forecast are computed (generally today).  If unavailable, the day before will be
+        tried as well
+        :param features: pollutants to get the forecasts for
+        :param position: (lat, long)
+        :return: dict where key is (ForecastFeature, date of the forecast) and value is a FeatureValue
+        """
         x, y = round_coordinates(position[0], position[1])
 
         result = dict()
@@ -227,6 +240,14 @@ class IrcelineForecastClient(IrcelineBaseClient):
 
     @staticmethod
     def extract_result_from_csv(x: float, y: float, csv_text: str) -> float | None:
+        """
+        Find the value of the forecast for the given (x, y) position in the csv text.
+        x, y should already be rounded to match the positions found in the csv
+        :param x: latitude (rounded)
+        :param y: longitude (rounded)
+        :param csv_text: text of the CSV file
+        :return: value matching the position if found, else None
+        """
         f = StringIO(csv_text)
         for row in csv.reader(f, delimiter=';'):
             try:

@@ -29,7 +29,7 @@ class SizedDict(OrderedDict):
         raise NotImplementedError()
 
 
-def epsg_transform(position: Tuple[float, float]) -> tuple:
+def epsg_transform(position: Tuple[float, float]) -> Tuple[int, int]:
     """
     Convert 'EPSG:4326' coordinates to 'EPSG:31370' coordinates
     :param position: (x, y) coordinates
@@ -39,6 +39,13 @@ def epsg_transform(position: Tuple[float, float]) -> tuple:
     return round(result[0]), round(result[1])
 
 
-def round_coordinates(x: float, y: float, step=.05):
+def round_coordinates(x: float, y: float, step=.05) -> Tuple[float, float]:
+    """
+    Round the coordinate to the precision given by step
+    :param x: latitude
+    :param y: longitude
+    :param step: precision of the rounding
+    :return: x and y round to the closest step increment
+    """
     n = 1 / step
     return round(x * n) / n, round(y * n) / n
