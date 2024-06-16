@@ -1,6 +1,6 @@
+from datetime import datetime, date
 from enum import StrEnum
 from typing import TypedDict
-from datetime import datetime, date
 
 
 class RioFeature(StrEnum):
@@ -24,6 +24,13 @@ class RioFeature(StrEnum):
     PM25_DMEAN = 'rio:pm25_dmean'
     PM25_HMEAN = 'rio:pm25_hmean'
     SO2_HMEAN = 'rio:so2_hmean'
+
+
+class ForecastFeature(StrEnum):
+    NO2_MAXHMEAN = 'chimere_no2_maxhmean'
+    O3_MAXHMEAN = 'chimere_o3_maxhmean'
+    PM10_DMEAN = 'chimere_pm10_dmean'
+    PM25_DMEAN = 'chimere_pm25_dmean'
 
 
 class FeatureValue(TypedDict):
