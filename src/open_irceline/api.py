@@ -92,7 +92,6 @@ class IrcelineRioClient(IrcelineBaseClient):
         :param position: decimal degrees pair of coordinates
         :return: dict with the response (key is RioFeature, value is FeatureValue with actual value and timestamp)
         """
-
         # Remove one hour/day from timestamp to handle case where the hour just passed but the data is not yet there
         # (e.g. 5.01 PM, but the most recent data is for 4.00 PM)
         if isinstance(timestamp, datetime):
@@ -106,7 +105,7 @@ class IrcelineRioClient(IrcelineBaseClient):
         else:
             raise IrcelineApiError(f"Wrong parameter type for timestamp: {type(timestamp)}")
 
-        coord = epsg_transform(position)
+        lat, lon = epsg_transform(position)
         querystring = {"service": "WFS",
                        "version": "1.3.0",
                        "request": "GetFeature",
@@ -115,8 +114,7 @@ class IrcelineRioClient(IrcelineBaseClient):
                        "cql_filter":
                            f"{key}>='{timestamp}'"
                            f" AND "
-                           f"INTERSECTS(the_geom, POINT ({coord[0]} {coord[1]}))"}
-
+                           f"INTERSECTS(the_geom, POINT ({lat} {lon}))"}
         r: ClientResponse = await self._api_wrapper(rio_wfs_base_url, querystring)
         return self._format_result('rio', await r.json(), features)
 
@@ -212,7 +210,6 @@ class IrcelineForecastClient(IrcelineBaseClient):
         :return: dict where key is (ForecastFeature, date of the forecast) and value is a FeatureValue
         """
         x, y = round_coordinates(position[0], position[1])
-
         result = dict()
 
         for feature, d in product(features, range(5)):
@@ -223,6 +220,7 @@ class IrcelineForecastClient(IrcelineBaseClient):
             except IrcelineApiError:
                 # retry for the day before
                 yesterday = day - timedelta(days=1)
+                print('here')
                 url = f"{forecast_base_url}/BE_{feature}_{yesterday.strftime('%Y%m%d')}_d{d}.csv"
                 try:
                     r: ClientResponse = await self._api_cached_wrapper(url)

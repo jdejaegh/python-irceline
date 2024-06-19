@@ -2,9 +2,11 @@ from datetime import datetime, date
 
 from freezegun import freeze_time
 
+from src.open_irceline import rio_wfs_base_url, user_agent
 from src.open_irceline.api import IrcelineRioClient
 from src.open_irceline.data import RioFeature, FeatureValue
-from tests.conftest import get_api_data
+from src.open_irceline.utils import epsg_transform
+from tests.conftest import get_api_data, get_mock_session_json
 
 
 @freeze_time(datetime.fromisoformat("2024-06-15T16:55:03.419Z"))
@@ -86,3 +88,45 @@ def test_parse_capabilities():
 def test_parse_capabilities_with_error():
     result = IrcelineRioClient._parse_capabilities("wow there no valid XML")
     assert result == set()
+
+
+async def test_api_rio():
+    pos = (50.4657, 4.8647)
+    x, y = epsg_transform(pos)
+    session = get_mock_session_json('rio_wfs.json')
+
+    client = IrcelineRioClient(session)
+
+    d = date(2024, 6, 18)
+    features = [RioFeature.NO2_HMEAN, RioFeature.O3_HMEAN]
+    _ = await client.get_rio_value(d, features, pos)
+    session.request.assert_called_once_with(
+        method='GET',
+        url=rio_wfs_base_url,
+        params={"service": "WFS",
+                "version": "1.3.0",
+                "request": "GetFeature",
+                "outputFormat": "application/json",
+                "typeName": ",".join(features),
+                "cql_filter":
+                    f"date>='2024-06-17'"
+                    f" AND "
+                    f"INTERSECTS(the_geom, POINT ({x} {y}))"},
+        headers={'User-Agent': user_agent}
+    )
+
+
+async def test_api_rio_get_capabilities():
+    session = get_mock_session_json(text_file='capabilities.xml')
+
+    client = IrcelineRioClient(session)
+    _ = await client.get_rio_capabilities()
+
+    session.request.assert_called_once_with(
+        method='GET',
+        url=rio_wfs_base_url,
+        params={"service": "WFS",
+                "version": "1.3.0",
+                "request": "GetCapabilities"},
+        headers={'User-Agent': user_agent}
+    )
