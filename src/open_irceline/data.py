@@ -1,5 +1,5 @@
 from datetime import datetime, date
-from enum import StrEnum
+from enum import StrEnum, Enum
 from typing import TypedDict
 
 
@@ -41,3 +41,16 @@ class FeatureValue(TypedDict):
     # Timestamp at which the value was computed
     timestamp: datetime | date
     value: int | float | None
+
+
+class BelAqiIndex(Enum):
+    EXCELLENT = 1
+    VERY_GOOD = 2
+    GOOD = 3
+    FAIRLY_GOOD = 4
+    MODERATE = 5
+    POOR = 6
+    VERY_POOR = 7
+    BAD = 8
+    VERY_BAD = 9
+    HORRIBLE = 10
