@@ -139,3 +139,5 @@ def test_belaqi_value_error():
 
     with pytest.raises(ValueError):
         belaqi_index(1, 0, 12, -8888)
+
+# TODO add more test for the other BelAQI functions

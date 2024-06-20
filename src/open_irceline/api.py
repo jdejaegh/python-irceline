@@ -204,14 +204,14 @@ class IrcelineForecastClient(IrcelineBaseClient):
     """API client for forecast IRCEL - CELINE open data"""
 
     async def get_data(self,
-                       day: date,
+                       timestamp: date,
                        features: List[ForecastFeature],
                        position: Tuple[float, float]
                        ) -> Dict[Tuple[ForecastFeature, date], FeatureValue]:
         """
         Get forecasted concentrations for the given features at the given position. The forecasts are downloaded for
         the specified day and the 4 next days as well
-        :param day: date at which the forecast are computed (generally today).  If unavailable, the day before will be
+        :param timestamp: date at which the forecast are computed (generally today).  If unavailable, the day before will be
         tried as well
         :param features: pollutants to get the forecasts for
         :param position: (lat, long)
@@ -221,13 +221,13 @@ class IrcelineForecastClient(IrcelineBaseClient):
         result = dict()
 
         for feature, d in product(features, range(5)):
-            url = f"{forecast_base_url}/BE_{feature}_{day.strftime('%Y%m%d')}_d{d}.csv"
+            url = f"{forecast_base_url}/BE_{feature}_{timestamp.strftime('%Y%m%d')}_d{d}.csv"
             try:
                 r: ClientResponse = await self._api_cached_wrapper(url)
-                ts = day
+                ts = timestamp
             except IrcelineApiError:
                 # retry for the day before
-                yesterday = day - timedelta(days=1)
+                yesterday = timestamp - timedelta(days=1)
                 print('here')
                 url = f"{forecast_base_url}/BE_{feature}_{yesterday.strftime('%Y%m%d')}_d{d}.csv"
                 try:
@@ -235,7 +235,7 @@ class IrcelineForecastClient(IrcelineBaseClient):
                     ts = yesterday
                 except IrcelineApiError:
                     # if it fails twice, just set None and go to the next
-                    result[(feature, day + timedelta(days=d))] = FeatureValue(value=None, timestamp=day)
+                    result[(feature, timestamp + timedelta(days=d))] = FeatureValue(value=None, timestamp=timestamp)
                     continue
 
             result[(feature, ts + timedelta(days=d))] = FeatureValue(

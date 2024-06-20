@@ -23,7 +23,7 @@ async def test_cached_calls():
     client = IrcelineForecastClient(session)
 
     _ = await client.get_data(
-        day=date(2024, 6, 19),
+        timestamp=date(2024, 6, 19),
         features=[ForecastFeature.NO2_MAXHMEAN],
         position=(50.45, 4.85)
     )
@@ -40,7 +40,7 @@ async def test_cached_calls():
     session.request.assert_has_calls(calls)
 
     _ = await client.get_data(
-        day=date(2024, 6, 19),
+        timestamp=date(2024, 6, 19),
         features=[ForecastFeature.NO2_MAXHMEAN],
         position=(50.45, 4.85)
     )
@@ -62,7 +62,7 @@ async def test_missed_cached_calls():
     client = IrcelineForecastClient(session)
 
     r = await client.get_data(
-        day=date(2024, 6, 21),
+        timestamp=date(2024, 6, 21),
         features=[ForecastFeature.NO2_MAXHMEAN],
         position=(50.45, 4.85)
     )

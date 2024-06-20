@@ -6,7 +6,11 @@ https://www.irceline.be/en/air-quality/measurements/belaqi-air-quality-index/inf
 > are applied to the latest hourly mean O3 and NO2 concentrations and the running 24-hourly mean PM2.5 and PM10
 > concentrations.
 """
-from src.open_irceline.data import BelAqiIndex
+from datetime import datetime, date
+from typing import Tuple, Dict
+
+from src.open_irceline.api import IrcelineRioClient, IrcelineForecastClient
+from src.open_irceline.data import BelAqiIndex, RioFeature, ForecastFeature
 
 
 def belaqi_index(pm10: float, pm25: float, o3: float, no2: float) -> BelAqiIndex:
@@ -52,3 +56,56 @@ def belaqi_index(pm10: float, pm25: float, o3: float, no2: float) -> BelAqiIndex
 
     elif pm10 >= 0 or pm25 >= 0 or o3 >= 0 or no2 >= 0:
         return BelAqiIndex.EXCELLENT
+
+
+async def belaqi_index_actual(rio_client: IrcelineRioClient, position: Tuple[float, float],
+                              timestamp: datetime | None = None) -> BelAqiIndex:
+    """
+    Get current BelAQI index value for the given position using the rio_client
+    :param rio_client: client for the RIO WFS service
+    :param position: position for which to get the data
+    :param timestamp: desired time for the data (now if None)
+    :return: BelAQI index value for the position at the time
+    """
+    if timestamp is None:
+        timestamp = datetime.utcnow()
+    components = await rio_client.get_data(
+        timestamp=timestamp,
+        features=[RioFeature.PM10_24HMEAN, RioFeature.PM25_24HMEAN, RioFeature.O3_HMEAN, RioFeature.NO2_HMEAN],
+        position=position
+    )
+
+    return belaqi_index(components[RioFeature.PM10_24HMEAN].get('value', -1),
+                        components[RioFeature.PM25_24HMEAN].get('value', -1),
+                        components[RioFeature.O3_HMEAN].get('value', -1),
+                        components[RioFeature.NO2_HMEAN].get('value', -1))
+
+
+async def belaqi_index_forecast(forecast_client: IrcelineForecastClient, position: Tuple[float, float],
+                                timestamp: date | None = None) -> Dict[date, BelAqiIndex]:
+    """
+    Get forecasted BelAQI index value for the given position using the forecast_client.
+    Data is downloaded for the given day and the four next days
+    :param forecast_client: client for the forecast data
+    :param position: position for which to get the data
+    :param timestamp: day at which the forecast are issued
+    :return: dict mapping a day to the forecasted BelAQI index
+    """
+    if timestamp is None:
+        timestamp = date.today()
+    components = await forecast_client.get_data(
+        timestamp=timestamp,
+        features=[ForecastFeature.PM10_DMEAN, ForecastFeature.PM25_DMEAN, ForecastFeature.O3_MAXHMEAN,
+                  ForecastFeature.NO2_MAXHMEAN],
+        position=position
+    )
+
+    result = dict()
+
+    for _, day in components.keys():
+        result[day] = belaqi_index(components[(ForecastFeature.PM10_DMEAN, day)].get('value', -1),
+                                   components[(ForecastFeature.PM25_DMEAN, day)].get('value', -1),
+                                   components[(ForecastFeature.O3_MAXHMEAN, day)].get('value', -1),
+                                   components[(ForecastFeature.NO2_MAXHMEAN, day)].get('value', -1))
+
+    return result
