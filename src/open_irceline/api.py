@@ -1,6 +1,7 @@
 import asyncio
 import csv
 import socket
+from abc import ABC, abstractmethod
 from datetime import datetime, timedelta, date
 from io import StringIO
 from itertools import product
@@ -12,7 +13,7 @@ import async_timeout
 from aiohttp import ClientResponse
 
 from . import rio_wfs_base_url, user_agent, forecast_base_url
-from .data import RioFeature, FeatureValue, ForecastFeature
+from .data import RioFeature, FeatureValue, ForecastFeature, IrcelineFeature
 from .utils import SizedDict, epsg_transform, round_coordinates
 
 
@@ -20,10 +21,17 @@ class IrcelineApiError(Exception):
     """Exception to indicate an API error."""
 
 
-class IrcelineBaseClient:
+class IrcelineBaseClient(ABC):
     def __init__(self, session: aiohttp.ClientSession, cache_size: int = 20) -> None:
         self._session = session
         self._cache = SizedDict(cache_size)
+
+    @abstractmethod
+    async def get_data(self,
+                       timestamp: datetime | date,
+                       features: List[IrcelineFeature],
+                       position: Tuple[float, float]) -> dict:
+        pass
 
     async def _api_wrapper(self, url: str, querystring: dict = None, headers: dict = None, method: str = 'GET'):
         """
@@ -80,11 +88,11 @@ class IrcelineBaseClient:
 class IrcelineRioClient(IrcelineBaseClient):
     """API client for RIO interpolated IRCEL - CELINE open data"""
 
-    async def get_rio_value(self,
-                            timestamp: datetime | date,
-                            features: List[RioFeature],
-                            position: Tuple[float, float]
-                            ) -> Dict[RioFeature, FeatureValue]:
+    async def get_data(self,
+                       timestamp: datetime | date,
+                       features: List[RioFeature],
+                       position: Tuple[float, float]
+                       ) -> Dict[RioFeature, FeatureValue]:
         """
         Call the WFS API to get the interpolated level of RioFeature. Raises exception upon API error
         :param timestamp: datetime for which to get the data for
@@ -195,11 +203,11 @@ class IrcelineRioClient(IrcelineBaseClient):
 class IrcelineForecastClient(IrcelineBaseClient):
     """API client for forecast IRCEL - CELINE open data"""
 
-    async def get_forecasts(self,
-                            day: date,
-                            features: List[ForecastFeature],
-                            position: Tuple[float, float]
-                            ) -> Dict[Tuple[ForecastFeature, date], FeatureValue]:
+    async def get_data(self,
+                       day: date,
+                       features: List[ForecastFeature],
+                       position: Tuple[float, float]
+                       ) -> Dict[Tuple[ForecastFeature, date], FeatureValue]:
         """
         Get forecasted concentrations for the given features at the given position. The forecasts are downloaded for
         the specified day and the 4 next days as well

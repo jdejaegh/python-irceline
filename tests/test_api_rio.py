@@ -99,7 +99,7 @@ async def test_api_rio():
 
     d = date(2024, 6, 18)
     features = [RioFeature.NO2_HMEAN, RioFeature.O3_HMEAN]
-    _ = await client.get_rio_value(d, features, pos)
+    _ = await client.get_data(d, features, pos)
     session.request.assert_called_once_with(
         method='GET',
         url=rio_wfs_base_url,

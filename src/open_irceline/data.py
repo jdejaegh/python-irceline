@@ -3,7 +3,11 @@ from enum import StrEnum
 from typing import TypedDict
 
 
-class RioFeature(StrEnum):
+class IrcelineFeature(StrEnum):
+    pass
+
+
+class RioFeature(IrcelineFeature):
     BC_24HMEAN = 'rio:bc_24hmean'
     BC_DMEAN = 'rio:bc_dmean'
     BC_HMEAN = 'rio:bc_hmean'
@@ -26,7 +30,7 @@ class RioFeature(StrEnum):
     SO2_HMEAN = 'rio:so2_hmean'
 
 
-class ForecastFeature(StrEnum):
+class ForecastFeature(IrcelineFeature):
     NO2_MAXHMEAN = 'chimere_no2_maxhmean'
     O3_MAXHMEAN = 'chimere_o3_maxhmean'
     PM10_DMEAN = 'chimere_pm10_dmean'
