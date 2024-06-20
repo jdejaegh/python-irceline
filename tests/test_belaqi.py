@@ -1,3 +1,5 @@
+from random import randint, seed
+import pytest
 from src.open_irceline.belaqi import belaqi_index
 from src.open_irceline.data import BelAqiIndex
 
@@ -52,3 +54,88 @@ def test_belaqi_index():
     assert belaqi_index(110, 75, 330, 310) == BelAqiIndex.HORRIBLE
     assert belaqi_index(101, 71, 321, 301) == BelAqiIndex.HORRIBLE
     assert belaqi_index(150, 100, 400, 400) == BelAqiIndex.HORRIBLE
+
+
+def test_belaqi_single_component():
+    # Tests with only PM10 varying
+    assert belaqi_index(5, 0, 0, 0) == BelAqiIndex.EXCELLENT
+    assert belaqi_index(15, 0, 0, 0) == BelAqiIndex.VERY_GOOD
+    assert belaqi_index(25, 0, 0, 0) == BelAqiIndex.GOOD
+    assert belaqi_index(35, 0, 0, 0) == BelAqiIndex.FAIRLY_GOOD
+    assert belaqi_index(45, 0, 0, 0) == BelAqiIndex.MODERATE
+    assert belaqi_index(55, 0, 0, 0) == BelAqiIndex.POOR
+    assert belaqi_index(65, 0, 0, 0) == BelAqiIndex.VERY_POOR
+    assert belaqi_index(75, 0, 0, 0) == BelAqiIndex.BAD
+    assert belaqi_index(85, 0, 0, 0) == BelAqiIndex.VERY_BAD
+    assert belaqi_index(110, 0, 0, 0) == BelAqiIndex.HORRIBLE
+
+    # Tests with only PM2.5 varying
+    assert belaqi_index(0, 2, 0, 0) == BelAqiIndex.EXCELLENT
+    assert belaqi_index(0, 8, 0, 0) == BelAqiIndex.VERY_GOOD
+    assert belaqi_index(0, 12, 0, 0) == BelAqiIndex.GOOD
+    assert belaqi_index(0, 20, 0, 0) == BelAqiIndex.FAIRLY_GOOD
+    assert belaqi_index(0, 30, 0, 0) == BelAqiIndex.MODERATE
+    assert belaqi_index(0, 38, 0, 0) == BelAqiIndex.POOR
+    assert belaqi_index(0, 45, 0, 0) == BelAqiIndex.VERY_POOR
+    assert belaqi_index(0, 55, 0, 0) == BelAqiIndex.BAD
+    assert belaqi_index(0, 65, 0, 0) == BelAqiIndex.VERY_BAD
+    assert belaqi_index(0, 75, 0, 0) == BelAqiIndex.HORRIBLE
+
+    # Tests with only O3 varying
+    assert belaqi_index(0, 0, 10, 0) == BelAqiIndex.EXCELLENT
+    assert belaqi_index(0, 0, 40, 0) == BelAqiIndex.VERY_GOOD
+    assert belaqi_index(0, 0, 60, 0) == BelAqiIndex.GOOD
+    assert belaqi_index(0, 0, 100, 0) == BelAqiIndex.FAIRLY_GOOD
+    assert belaqi_index(0, 0, 140, 0) == BelAqiIndex.MODERATE
+    assert belaqi_index(0, 0, 170, 0) == BelAqiIndex.POOR
+    assert belaqi_index(0, 0, 200, 0) == BelAqiIndex.VERY_POOR
+    assert belaqi_index(0, 0, 260, 0) == BelAqiIndex.BAD
+    assert belaqi_index(0, 0, 300, 0) == BelAqiIndex.VERY_BAD
+    assert belaqi_index(0, 0, 330, 0) == BelAqiIndex.HORRIBLE
+
+    # Tests with only NO2 varying
+    assert belaqi_index(0, 0, 0, 10) == BelAqiIndex.EXCELLENT
+    assert belaqi_index(0, 0, 0, 35) == BelAqiIndex.VERY_GOOD
+    assert belaqi_index(0, 0, 0, 60) == BelAqiIndex.GOOD
+    assert belaqi_index(0, 0, 0, 90) == BelAqiIndex.FAIRLY_GOOD
+    assert belaqi_index(0, 0, 0, 130) == BelAqiIndex.MODERATE
+    assert belaqi_index(0, 0, 0, 160) == BelAqiIndex.POOR
+    assert belaqi_index(0, 0, 0, 190) == BelAqiIndex.VERY_POOR
+    assert belaqi_index(0, 0, 0, 220) == BelAqiIndex.BAD
+    assert belaqi_index(0, 0, 0, 270) == BelAqiIndex.VERY_BAD
+    assert belaqi_index(0, 0, 0, 310) == BelAqiIndex.HORRIBLE
+
+
+def test_belaqi_random():
+    seed(42)
+    # Generate random test values and their expected indices
+    test_cases = [
+        (randint(0, 10), randint(0, 5), randint(0, 25), randint(0, 20), BelAqiIndex.EXCELLENT),
+        (randint(11, 20), randint(6, 10), randint(26, 50), randint(21, 50), BelAqiIndex.VERY_GOOD),
+        (randint(21, 30), randint(11, 15), randint(51, 70), randint(51, 70), BelAqiIndex.GOOD),
+        (randint(31, 40), randint(16, 25), randint(71, 120), randint(71, 120), BelAqiIndex.FAIRLY_GOOD),
+        (randint(41, 50), randint(26, 35), randint(121, 160), randint(121, 150), BelAqiIndex.MODERATE),
+        (randint(51, 60), randint(36, 40), randint(161, 180), randint(151, 180), BelAqiIndex.POOR),
+        (randint(61, 70), randint(41, 50), randint(181, 240), randint(181, 200), BelAqiIndex.VERY_POOR),
+        (randint(71, 80), randint(51, 60), randint(241, 280), randint(201, 250), BelAqiIndex.BAD),
+        (randint(81, 100), randint(61, 70), randint(281, 320), randint(251, 300), BelAqiIndex.VERY_BAD),
+        (randint(101, 150), randint(71, 100), randint(321, 400), randint(301, 400), BelAqiIndex.HORRIBLE)
+    ]
+
+    # Test each case
+    for pm10, pm25, o3, no2, expected in test_cases:
+        assert belaqi_index(pm10, pm25, o3, no2) == expected
+
+
+def test_belaqi_value_error():
+    with pytest.raises(ValueError):
+        belaqi_index(-1, 0, 12, 8)
+
+    with pytest.raises(ValueError):
+        belaqi_index(1, -20, 12, 8)
+
+    with pytest.raises(ValueError):
+        belaqi_index(1, 0, -12, 8)
+
+    with pytest.raises(ValueError):
+        belaqi_index(1, 0, 12, -8888)
