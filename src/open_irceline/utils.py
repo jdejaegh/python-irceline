@@ -1,7 +1,9 @@
 from collections import OrderedDict
 from typing import Tuple
 
-from src.open_irceline import _project_transform
+from pyproj import Transformer
+
+_project_transform = Transformer.from_crs('EPSG:4326', 'EPSG:31370', always_xy=False)
 
 
 class SizedDict(OrderedDict):

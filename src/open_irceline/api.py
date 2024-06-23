@@ -12,10 +12,14 @@ import aiohttp
 import async_timeout
 from aiohttp import ClientResponse
 
-from . import _rio_wfs_base_url, _user_agent, _forecast_base_url
 from .data import RioFeature, FeatureValue, ForecastFeature, IrcelineFeature
 from .utils import SizedDict, epsg_transform, round_coordinates
 
+_rio_wfs_base_url = 'https://geo.irceline.be/wfs'
+# noinspection HttpUrlsUsage
+# There is not HTTPS version of this endpoint
+_forecast_base_url = 'http://ftp.irceline.be/forecast'
+_user_agent = 'github.com/jdejaegh/python-irceline'
 
 class IrcelineApiError(Exception):
     """Exception to indicate an API error."""

@@ -2,8 +2,8 @@ from datetime import datetime, date
 
 from freezegun import freeze_time
 
-from src.open_irceline import _rio_wfs_base_url, _user_agent
 from src.open_irceline.api import IrcelineRioClient
+from src.open_irceline.api import _rio_wfs_base_url, _user_agent
 from src.open_irceline.data import RioFeature, FeatureValue
 from src.open_irceline.utils import epsg_transform
 from tests.conftest import get_api_data, get_mock_session

@@ -1,7 +1,7 @@
 from datetime import date
 from unittest.mock import call
 
-from src.open_irceline import _forecast_base_url, _user_agent
+from src.open_irceline.api import _forecast_base_url, _user_agent
 from src.open_irceline.api import IrcelineForecastClient
 from src.open_irceline.data import ForecastFeature
 from tests.conftest import get_api_data, get_mock_session_many_csv
