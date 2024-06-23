@@ -6,7 +6,7 @@ from src.open_irceline import rio_wfs_base_url, user_agent
 from src.open_irceline.api import IrcelineRioClient
 from src.open_irceline.data import RioFeature, FeatureValue
 from src.open_irceline.utils import epsg_transform
-from tests.conftest import get_api_data, get_mock_session_json
+from tests.conftest import get_api_data, get_mock_session
 
 
 @freeze_time(datetime.fromisoformat("2024-06-15T16:55:03.419Z"))
@@ -93,7 +93,7 @@ def test_parse_capabilities_with_error():
 async def test_api_rio():
     pos = (50.4657, 4.8647)
     x, y = epsg_transform(pos)
-    session = get_mock_session_json('rio_wfs.json')
+    session = get_mock_session('rio_wfs.json')
 
     client = IrcelineRioClient(session)
 
@@ -117,7 +117,7 @@ async def test_api_rio():
 
 
 async def test_api_rio_get_capabilities():
-    session = get_mock_session_json(text_file='capabilities.xml')
+    session = get_mock_session(text_file='capabilities.xml')
 
     client = IrcelineRioClient(session)
     _ = await client.get_rio_capabilities()

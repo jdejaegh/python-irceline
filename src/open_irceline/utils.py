@@ -15,7 +15,7 @@ class SizedDict(OrderedDict):
         super().__setitem__(key, value)
         self.move_to_end(key)
         if len(self) > self._size:
-            print('drop', self.popitem(False)[0])
+            self.popitem(False)
 
     def __getitem__(self, key):
         self.move_to_end(key)

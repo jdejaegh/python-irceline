@@ -4,7 +4,6 @@ from unittest.mock import Mock, AsyncMock
 import aiohttp
 
 
-
 def get_api_data(fixture: str, plain=False) -> str | dict:
     with open(f'tests/fixtures/{fixture}', 'r') as file:
         if plain:
@@ -12,7 +11,7 @@ def get_api_data(fixture: str, plain=False) -> str | dict:
         return json.load(file)
 
 
-def get_mock_session_json(json_file=None, text_file=None):
+def get_mock_session(json_file=None, text_file=None):
     # Create the mock response
     mock_response = Mock()
     if json_file is not None:

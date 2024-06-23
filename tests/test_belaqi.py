@@ -1,7 +1,12 @@
+from datetime import date, timedelta, datetime
 from random import randint, seed
+from freezegun import freeze_time
 import pytest
-from src.open_irceline.belaqi import belaqi_index
+
+from src.open_irceline.api import IrcelineForecastClient, IrcelineRioClient
+from src.open_irceline.belaqi import belaqi_index, belaqi_index_forecast, belaqi_index_actual
 from src.open_irceline.data import BelAqiIndex
+from tests.conftest import get_mock_session_many_csv, get_mock_session
 
 
 def test_belaqi_index():
@@ -140,4 +145,53 @@ def test_belaqi_value_error():
     with pytest.raises(ValueError):
         belaqi_index(1, 0, 12, -8888)
 
-# TODO add more test for the other BelAQI functions
+
+
+@freeze_time(datetime.fromisoformat("2024-06-19T19:30:09.581Z"))
+async def test_belaqi_index_forecast():
+    session = get_mock_session_many_csv()
+    client = IrcelineForecastClient(session)
+    pos = (50.55, 4.85)
+
+    result = await belaqi_index_forecast(client, pos)
+
+    expected_days = {date(2024, 6, 19) + timedelta(days=i) for i in range(5)}
+
+    assert set(result.keys()) == expected_days
+    for v in result.values():
+        assert v == BelAqiIndex.GOOD
+
+
+async def test_belaqi_index_forecast_missing_day():
+    session = get_mock_session_many_csv()
+    client = IrcelineForecastClient(session)
+    pos = (50.55, 4.85)
+
+    result = await belaqi_index_forecast(client, pos, date(2024, 6, 21))
+
+    expected_days = {date(2024, 6, 21) + timedelta(days=i) for i in range(5)}
+    print(result)
+    assert set(result.keys()) == expected_days
+    for v in result.values():
+        assert v is None
+
+
+@freeze_time(datetime.fromisoformat("2024-06-23T12:30:09.581Z"))
+async def test_belaqi_index_actual():
+    session = get_mock_session(json_file='rio_wfs_for_belaqi.json')
+    client = IrcelineRioClient(session)
+    pos = (50.55, 4.85)
+
+    result = await belaqi_index_actual(client, pos)
+    print(result)
+    assert result == BelAqiIndex.FAIRLY_GOOD
+
+
+@freeze_time(datetime.fromisoformat("2024-06-23T12:30:09.581Z"))
+async def test_belaqi_index_actual_missing_value():
+    session = get_mock_session(json_file='rio_wfs.json')
+    client = IrcelineRioClient(session)
+    pos = (50.55, 4.85)
+
+    with pytest.raises(ValueError):
+        _ = await belaqi_index_actual(client, pos)

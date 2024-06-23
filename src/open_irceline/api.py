@@ -40,7 +40,6 @@ class IrcelineBaseClient(ABC):
         :param querystring: dict to build the query string
         :return: response from the client
         """
-
         if headers is None:
             headers = dict()
         if 'User-Agent' not in headers:
@@ -228,7 +227,6 @@ class IrcelineForecastClient(IrcelineBaseClient):
             except IrcelineApiError:
                 # retry for the day before
                 yesterday = timestamp - timedelta(days=1)
-                print('here')
                 url = f"{forecast_base_url}/BE_{feature}_{yesterday.strftime('%Y%m%d')}_d{d}.csv"
                 try:
                     r: ClientResponse = await self._api_cached_wrapper(url)
