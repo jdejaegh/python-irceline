@@ -170,7 +170,6 @@ async def test_belaqi_index_forecast_missing_day():
     result = await belaqi_index_forecast(client, pos, date(2024, 6, 21))
 
     expected_days = {date(2024, 6, 21) + timedelta(days=i) for i in range(5)}
-    print(result)
     assert set(result.keys()) == expected_days
     for v in result.values():
         assert v is None
