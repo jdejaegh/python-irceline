@@ -9,8 +9,8 @@ https://www.irceline.be/en/air-quality/measurements/belaqi-air-quality-index/inf
 from datetime import datetime, date
 from typing import Tuple, Dict
 
-from src.open_irceline.api import IrcelineRioClient, IrcelineForecastClient
-from src.open_irceline.data import BelAqiIndex, RioFeature, ForecastFeature
+from .api import IrcelineRioClient, IrcelineForecastClient
+from .data import BelAqiIndex, RioFeature, ForecastFeature
 
 
 def belaqi_index(pm10: float, pm25: float, o3: float, no2: float) -> BelAqiIndex:

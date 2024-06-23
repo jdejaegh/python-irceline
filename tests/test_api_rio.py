@@ -2,8 +2,8 @@ from datetime import datetime, date
 
 from freezegun import freeze_time
 
-from src.open_irceline import rio_wfs_base_url, user_agent
 from src.open_irceline.api import IrcelineRioClient
+from src.open_irceline.api import _rio_wfs_base_url, _user_agent
 from src.open_irceline.data import RioFeature, FeatureValue
 from src.open_irceline.utils import epsg_transform
 from tests.conftest import get_api_data, get_mock_session
@@ -102,7 +102,7 @@ async def test_api_rio():
     _ = await client.get_data(d, features, pos)
     session.request.assert_called_once_with(
         method='GET',
-        url=rio_wfs_base_url,
+        url=_rio_wfs_base_url,
         params={"service": "WFS",
                 "version": "1.3.0",
                 "request": "GetFeature",
@@ -112,7 +112,7 @@ async def test_api_rio():
                     f"date>='2024-06-17'"
                     f" AND "
                     f"INTERSECTS(the_geom, POINT ({x} {y}))"},
-        headers={'User-Agent': user_agent}
+        headers={'User-Agent': _user_agent}
     )
 
 
@@ -124,9 +124,9 @@ async def test_api_rio_get_capabilities():
 
     session.request.assert_called_once_with(
         method='GET',
-        url=rio_wfs_base_url,
+        url=_rio_wfs_base_url,
         params={"service": "WFS",
                 "version": "1.3.0",
                 "request": "GetCapabilities"},
-        headers={'User-Agent': user_agent}
+        headers={'User-Agent': _user_agent}
     )

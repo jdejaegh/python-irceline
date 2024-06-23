@@ -12,10 +12,14 @@ import aiohttp
 import async_timeout
 from aiohttp import ClientResponse
 
-from . import rio_wfs_base_url, user_agent, forecast_base_url
 from .data import RioFeature, FeatureValue, ForecastFeature, IrcelineFeature
 from .utils import SizedDict, epsg_transform, round_coordinates
 
+_rio_wfs_base_url = 'https://geo.irceline.be/wfs'
+# noinspection HttpUrlsUsage
+# There is not HTTPS version of this endpoint
+_forecast_base_url = 'http://ftp.irceline.be/forecast'
+_user_agent = 'github.com/jdejaegh/python-irceline'
 
 class IrcelineApiError(Exception):
     """Exception to indicate an API error."""
@@ -43,7 +47,7 @@ class IrcelineBaseClient(ABC):
         if headers is None:
             headers = dict()
         if 'User-Agent' not in headers:
-            headers |= {'User-Agent': user_agent}
+            headers |= {'User-Agent': _user_agent}
 
         try:
             async with async_timeout.timeout(60):
@@ -122,7 +126,7 @@ class IrcelineRioClient(IrcelineBaseClient):
                            f"{key}>='{timestamp}'"
                            f" AND "
                            f"INTERSECTS(the_geom, POINT ({lat} {lon}))"}
-        r: ClientResponse = await self._api_wrapper(rio_wfs_base_url, querystring)
+        r: ClientResponse = await self._api_wrapper(_rio_wfs_base_url, querystring)
         return self._format_result('rio', await r.json(), features)
 
     async def get_rio_capabilities(self) -> Set[str]:
@@ -133,7 +137,7 @@ class IrcelineRioClient(IrcelineBaseClient):
         querystring = {"service": "WFS",
                        "version": "1.3.0",
                        "request": "GetCapabilities"}
-        r: ClientResponse = await self._api_wrapper(rio_wfs_base_url, querystring)
+        r: ClientResponse = await self._api_wrapper(_rio_wfs_base_url, querystring)
 
         return self._parse_capabilities(await r.text())
 
@@ -220,14 +224,14 @@ class IrcelineForecastClient(IrcelineBaseClient):
         result = dict()
 
         for feature, d in product(features, range(5)):
-            url = f"{forecast_base_url}/BE_{feature}_{timestamp.strftime('%Y%m%d')}_d{d}.csv"
+            url = f"{_forecast_base_url}/BE_{feature}_{timestamp.strftime('%Y%m%d')}_d{d}.csv"
             try:
                 r: ClientResponse = await self._api_cached_wrapper(url)
                 ts = timestamp
             except IrcelineApiError:
                 # retry for the day before
                 yesterday = timestamp - timedelta(days=1)
-                url = f"{forecast_base_url}/BE_{feature}_{yesterday.strftime('%Y%m%d')}_d{d}.csv"
+                url = f"{_forecast_base_url}/BE_{feature}_{yesterday.strftime('%Y%m%d')}_d{d}.csv"
                 try:
                     r: ClientResponse = await self._api_cached_wrapper(url)
                     ts = yesterday

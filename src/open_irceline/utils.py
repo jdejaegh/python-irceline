@@ -1,7 +1,9 @@
 from collections import OrderedDict
 from typing import Tuple
 
-from src.open_irceline import project_transform
+from pyproj import Transformer
+
+_project_transform = Transformer.from_crs('EPSG:4326', 'EPSG:31370', always_xy=False)
 
 
 class SizedDict(OrderedDict):
@@ -35,7 +37,7 @@ def epsg_transform(position: Tuple[float, float]) -> Tuple[int, int]:
     :param position: (x, y) coordinates
     :return: tuple of int in the EPSG:31370 system
     """
-    result = project_transform.transform(position[0], position[1])
+    result = _project_transform.transform(position[0], position[1])
     return round(result[0]), round(result[1])
 
 
