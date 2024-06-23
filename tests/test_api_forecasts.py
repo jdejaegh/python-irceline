@@ -1,7 +1,7 @@
 from datetime import date
 from unittest.mock import call
 
-from src.open_irceline import forecast_base_url, user_agent
+from src.open_irceline import _forecast_base_url, _user_agent
 from src.open_irceline.api import IrcelineForecastClient
 from src.open_irceline.data import ForecastFeature
 from tests.conftest import get_api_data, get_mock_session_many_csv
@@ -30,9 +30,9 @@ async def test_cached_calls():
 
     calls = [
         call(method='GET',
-             url=f"{forecast_base_url}/BE_{ForecastFeature.NO2_MAXHMEAN}_20240619_d{i}.csv",
+             url=f"{_forecast_base_url}/BE_{ForecastFeature.NO2_MAXHMEAN}_20240619_d{i}.csv",
              params=None,
-             headers={'User-Agent': user_agent}
+             headers={'User-Agent': _user_agent}
              ) for i in range(5)
     ]
 
@@ -47,9 +47,9 @@ async def test_cached_calls():
 
     calls += [
         call(method='GET',
-             url=f"{forecast_base_url}/BE_{ForecastFeature.NO2_MAXHMEAN}_20240619_d{i}.csv",
+             url=f"{_forecast_base_url}/BE_{ForecastFeature.NO2_MAXHMEAN}_20240619_d{i}.csv",
              params=None,
-             headers={'User-Agent': user_agent, 'If-None-Match': 'my-etag-here'}
+             headers={'User-Agent': _user_agent, 'If-None-Match': 'my-etag-here'}
              ) for i in range(5)
     ]
 
@@ -72,14 +72,14 @@ async def test_missed_cached_calls():
     for i in range(5):
         calls += [
             call(method='GET',
-                 url=f"{forecast_base_url}/BE_{ForecastFeature.NO2_MAXHMEAN}_20240621_d{i}.csv",
+                 url=f"{_forecast_base_url}/BE_{ForecastFeature.NO2_MAXHMEAN}_20240621_d{i}.csv",
                  params=None,
-                 headers={'User-Agent': user_agent}
+                 headers={'User-Agent': _user_agent}
                  ),
             call(method='GET',
-                 url=f"{forecast_base_url}/BE_{ForecastFeature.NO2_MAXHMEAN}_20240620_d{i}.csv",
+                 url=f"{_forecast_base_url}/BE_{ForecastFeature.NO2_MAXHMEAN}_20240620_d{i}.csv",
                  params=None,
-                 headers={'User-Agent': user_agent}
+                 headers={'User-Agent': _user_agent}
                  )
         ]
 
