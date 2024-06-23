@@ -1,5 +1,7 @@
 from pyproj import Transformer
 
+__version__ = '0.0.3'
+
 project_transform = Transformer.from_crs('EPSG:4326', 'EPSG:31370', always_xy=False)
 rio_wfs_base_url = 'https://geo.irceline.be/wfs'
 # noinspection HttpUrlsUsage

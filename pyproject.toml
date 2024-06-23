@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "open_irceline"
+version = "0.0.3"
+description = "Get IRCEL - CELINE air quality data"
+readme = "README.md"
+authors = [{ name = "Jules Dejaeghere", email = "curable.grass491@mailer.me" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["air-quality", "air", "ircel", "celine", "irceline", "open-data", "opendata", "belgium"]
+dependencies = [
+    "aiohttp>=3.9.5",
+    "pyproj>=3.6.1",
+    "async-timeout>=4.0.3"
+]
+requires-python = ">=3.11"
+
+[project.urls]
+Homepage = "https://github.com/jdejaegh/python-irceline"
+
+[tool.bumpver]
+current_version = "0.0.3"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message = "bump version {old_version} -> {new_version}"
+tag_message = "{new_version}"
+tag_scope = "default"
+pre_commit_hook = ""
+post_commit_hook = ""
+commit = true
+tag = false
+push = false
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = [
+    'current_version = "{version}"',
+    'version = "{version}"'
+]
+"src/open_irceline/__init__.py" = ["{version}"]
+
