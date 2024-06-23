@@ -1,7 +1,8 @@
 from datetime import date, timedelta, datetime
 from random import randint, seed
-from freezegun import freeze_time
+
 import pytest
+from freezegun import freeze_time
 
 from src.open_irceline.api import IrcelineForecastClient, IrcelineRioClient
 from src.open_irceline.belaqi import belaqi_index, belaqi_index_forecast, belaqi_index_actual
@@ -144,7 +145,6 @@ def test_belaqi_value_error():
 
     with pytest.raises(ValueError):
         belaqi_index(1, 0, 12, -8888)
-
 
 
 @freeze_time(datetime.fromisoformat("2024-06-19T19:30:09.581Z"))

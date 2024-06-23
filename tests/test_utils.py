@@ -1,5 +1,6 @@
-from src.open_irceline.utils import SizedDict, round_coordinates, epsg_transform
 import pytest
+
+from src.open_irceline.utils import SizedDict, round_coordinates, epsg_transform
 
 
 def test_sized_dict():
