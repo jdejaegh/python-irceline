@@ -9,6 +9,8 @@ permissions:
   contents: write
 
 jobs:
+  tests:
+    uses: ./.github/workflows/pytest.yml
   release:
     name: Release pushed tag
     runs-on: ubuntu-22.04
@@ -22,3 +24,23 @@ jobs:
               --repo="$GITHUB_REPOSITORY" \
               --title="${GITHUB_REPOSITORY#*/} ${tag#v}" \
               --generate-notes
+  publish:
+    name: Publish to PyPI
+    needs: [tests] # require tests to pass before deploy runs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+      - name: Build package
+        run: |
+          python -m pip install -U pip build
+          python -m build
+      - name: Publish
+        uses: pypa/gh-action-pypi-publish@v1.5.0
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_KEY }}
