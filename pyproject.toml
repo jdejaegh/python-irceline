@@ -35,7 +35,7 @@ tag_scope = "default"
 pre_commit_hook = ""
 post_commit_hook = ""
 commit = true
-tag = false
+tag = true
 push = false
 
 [tool.bumpver.file_patterns]
