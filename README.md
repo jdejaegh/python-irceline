@@ -26,7 +26,7 @@ import aiohttp
 import asyncio
 from datetime import datetime, date
 
-from open_irceline import IrcelineRioClient, RioFeature, IrcelineForecastClient, ForecastFeature, belaqi_index_actual
+from open_irceline import IrcelineRioClient, RioFeature, IrcelineForecastClient, ForecastFeature, belaqi_index_rio_hourly
 
 
 async def get_rio_interpolated_data():
@@ -61,7 +61,7 @@ async def get_current_belaqi():
     """Get current BelAQI index from RIO interpolated values"""
     async with aiohttp.ClientSession() as session:
         client = IrcelineRioClient(session)
-        result = await belaqi_index_actual(
+        result = await belaqi_index_rio_hourly(
             rio_client=client,
             timestamp=datetime.utcnow(),  # must be timezone aware
             position=(50.85, 4.35)        # (lat, lon) for Brussels
