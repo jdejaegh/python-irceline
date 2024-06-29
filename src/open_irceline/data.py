@@ -37,12 +37,6 @@ class ForecastFeature(IrcelineFeature):
     PM25_DMEAN = 'chimere_pm25_dmean'
 
 
-class FeatureValue(TypedDict):
-    # Timestamp at which the value was computed
-    timestamp: datetime | date
-    value: int | float | None
-
-
 class BelAqiIndex(Enum):
     EXCELLENT = 1
     VERY_GOOD = 2
@@ -54,3 +48,9 @@ class BelAqiIndex(Enum):
     BAD = 8
     VERY_BAD = 9
     HORRIBLE = 10
+
+
+class FeatureValue(TypedDict):
+    # Timestamp at which the value was computed
+    timestamp: datetime | date
+    value: int | float | BelAqiIndex | None

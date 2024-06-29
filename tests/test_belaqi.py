@@ -231,7 +231,7 @@ async def test_belaqi_index_forecast():
 
     assert set(result.keys()) == expected_days
     for v in result.values():
-        assert v == BelAqiIndex.MODERATE
+        assert v.get('value') == BelAqiIndex.MODERATE
 
 
 async def test_belaqi_index_forecast_missing_day():
@@ -244,7 +244,7 @@ async def test_belaqi_index_forecast_missing_day():
     expected_days = {date(2024, 6, 21) + timedelta(days=i) for i in range(5)}
     assert set(result.keys()) == expected_days
     for v in result.values():
-        assert v is None
+        assert v.get('value') is None
 
 
 @freeze_time(datetime.fromisoformat("2024-06-23T12:30:09.581Z"))
@@ -254,7 +254,7 @@ async def test_belaqi_index_actual():
     pos = (50.55, 4.85)
 
     result = await belaqi_index_rio_hourly(client, pos)
-    assert result == BelAqiIndex.GOOD
+    assert result.get('value') == BelAqiIndex.GOOD
 
 
 @freeze_time(datetime.fromisoformat("2024-06-23T12:30:09.581Z"))

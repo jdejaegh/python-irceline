@@ -67,7 +67,7 @@ async def get_current_belaqi():
             position=(50.85, 4.35)        # (lat, lon) for Brussels
         )
 
-    print(f"Current BelAQI index for Brussels: {result}")
+    print(f"Current BelAQI index for Brussels: {result.get('value')}")
 
 
 if __name__ == '__main__':
