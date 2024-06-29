@@ -3,7 +3,7 @@
   "features": [
     {
       "type": "Feature",
-      "id": "pm10_24hmean.fid--d1ce43_19045107e20_1893",
+      "id": "pm10_hmean.fid--d1ce43_19045107e20_1893",
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -41,7 +41,7 @@
     },
     {
       "type": "Feature",
-      "id": "pm10_24hmean.fid--d1ce43_19045107e20_1894",
+      "id": "pm10_hmean.fid--d1ce43_19045107e20_1894",
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -79,7 +79,7 @@
     },
     {
       "type": "Feature",
-      "id": "pm25_24hmean.fid--d1ce43_19045107e20_1895",
+      "id": "pm25_hmean.fid--d1ce43_19045107e20_1895",
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -117,7 +117,7 @@
     },
     {
       "type": "Feature",
-      "id": "pm25_24hmean.fid--d1ce43_19045107e20_1896",
+      "id": "pm25_hmean.fid--d1ce43_19045107e20_1896",
       "geometry": {
         "type": "Polygon",
         "coordinates": [
