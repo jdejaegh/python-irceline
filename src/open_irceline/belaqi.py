@@ -6,7 +6,7 @@ from datetime import datetime, date
 from typing import Tuple, Dict, Final
 
 from .api import IrcelineRioClient, IrcelineForecastClient
-from .data import BelAqiIndex, RioFeature, ForecastFeature
+from .data import BelAqiIndex, RioFeature, ForecastFeature, FeatureValue
 
 # Ratio values from Figure 2 at
 # https://www.irceline.be/en/air-quality/measurements/air-quality-index-november-2022/info_nov2022
@@ -117,7 +117,7 @@ def belaqi_index_hourly(pm10: float, pm25: float, o3: float, no2: float) -> BelA
 
 
 async def belaqi_index_rio_hourly(rio_client: IrcelineRioClient, position: Tuple[float, float],
-                                  timestamp: datetime | None = None) -> BelAqiIndex:
+                                  timestamp: datetime | None = None) -> FeatureValue:
     """
     Get current BelAQI index value for the given position using the rio_client
     Raise ValueError if one or more components are not available
@@ -128,25 +128,30 @@ async def belaqi_index_rio_hourly(rio_client: IrcelineRioClient, position: Tuple
     """
     if timestamp is None:
         timestamp = datetime.utcnow()
+
+    features = [RioFeature.PM10_HMEAN, RioFeature.PM25_HMEAN, RioFeature.O3_HMEAN, RioFeature.NO2_HMEAN]
+
     components = await rio_client.get_data(
         timestamp=timestamp,
-        features=[RioFeature.PM10_HMEAN,
-                  RioFeature.PM25_HMEAN,
-                  RioFeature.O3_HMEAN,
-                  RioFeature.NO2_HMEAN],
+        features=features,
         position=position
     )
 
-    return belaqi_index_hourly(
+    ts = min([components.get(f, {}).get('timestamp') for f in features
+              if components.get(f, {}).get('timestamp') is not None])
+
+    belaqi = belaqi_index_hourly(
         pm10=components.get(RioFeature.PM10_HMEAN, {}).get('value', -1),
         pm25=components.get(RioFeature.PM25_HMEAN, {}).get('value', -1),
         o3=components.get(RioFeature.O3_HMEAN, {}).get('value', -1),
         no2=components.get(RioFeature.NO2_HMEAN, {}).get('value', -1)
     )
 
+    return FeatureValue(timestamp=ts, value=belaqi)
+
 
 async def belaqi_index_forecast_daily(forecast_client: IrcelineForecastClient, position: Tuple[float, float],
-                                      timestamp: date | None = None) -> Dict[date, BelAqiIndex | None]:
+                                      timestamp: date | None = None) -> Dict[date, FeatureValue]:
     """
     Get forecasted BelAQI index value for the given position using the forecast_client.
     Data is downloaded for the given day and the four next days
@@ -169,15 +174,19 @@ async def belaqi_index_forecast_daily(forecast_client: IrcelineForecastClient, p
 
     result = dict()
 
-    for _, day in components.keys():
+    days = {day for _, day in components.keys()}
+    timestamps = {v.get('timestamp') for v in components.values() if v.get('timestamp') is not None}
+    timestamp = min(timestamps)
+    for day in days:
         try:
-            result[day] = belaqi_index_daily(
+            belaqi = belaqi_index_daily(
                 pm10=components.get((ForecastFeature.PM10_DMEAN, day), {}).get('value', -1),
                 pm25=components.get((ForecastFeature.PM25_DMEAN, day), {}).get('value', -1),
                 o3=components.get((ForecastFeature.O3_MAXHMEAN, day), {}).get('value', -1) * O3_MAX_HMEAN_TO_MAX8HMEAN,
                 no2=components.get((ForecastFeature.NO2_MAXHMEAN, day), {}).get('value', -1) * NO2_MAX_HMEAN_TO_DMEAN
             )
+            result[day] = FeatureValue(timestamp=timestamp, value=belaqi)
         except (ValueError, TypeError):
-            result[day] = None
+            result[day] = FeatureValue(timestamp=timestamp, value=None)
 
     return result
