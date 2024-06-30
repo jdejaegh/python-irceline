@@ -1,0 +1,17 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "",
+      "geometry": null,
+      "properties": {
+        "WRONG": 10.853286743164062
+      }
+    }
+  ],
+  "totalFeatures": "unknown",
+  "numberReturned": 1,
+  "timeStamp": "2024-06-30T13:00:21.520Z",
+  "crs": null
+}

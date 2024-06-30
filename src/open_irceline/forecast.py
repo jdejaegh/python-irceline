@@ -5,7 +5,7 @@ from xml.etree import ElementTree
 
 from aiohttp import ClientResponse, ClientResponseError
 
-from .api import IrcelineBaseClient, _rio_wfs_base_url, _forecast_wms_base_url, IrcelineApiError
+from .api import IrcelineBaseClient, _forecast_wms_base_url, IrcelineApiError
 from .data import ForecastFeature, FeatureValue
 
 
@@ -40,14 +40,13 @@ class IrcelineForecastClient(IrcelineBaseClient):
         for feature, d in product(features, range(4)):
             querystring = base_querystring | {"layers": f"{feature}_d{d}",
                                               "query_layers": f"{feature}_d{d}"}
-            print(querystring)
             try:
-                r: ClientResponse = await self._api_wrapper(_rio_wfs_base_url, querystring)
+                r: ClientResponse = await self._api_wrapper(_forecast_wms_base_url, querystring)
                 r: dict = await r.json()
                 result[(feature, timestamp + timedelta(days=d))] = FeatureValue(
                     value=r.get('features', [{}])[0].get('properties', {}).get('GRAY_INDEX'),
                     timestamp=datetime.fromisoformat(r.get('timeStamp')) if 'timeStamp' in r else None)
-            except (IrcelineApiError, ClientResponseError):
+            except (IrcelineApiError, ClientResponseError, IndexError):
                 result[(feature, timestamp + timedelta(days=d))] = FeatureValue(value=None, timestamp=None)
 
         return result
@@ -72,5 +71,5 @@ class IrcelineForecastClient(IrcelineBaseClient):
             return set()
 
         path = './/Capability/Layer/Layer/Name'
-        feature_type_names = {t.text for t in root.findall(path) if t.text.endswith('_d0')}
+        feature_type_names = {t.text for t in root.findall(path)}
         return feature_type_names

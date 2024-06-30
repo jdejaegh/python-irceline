@@ -47,7 +47,6 @@ class IrcelineBaseClient(ABC):
             headers = dict()
         if 'User-Agent' not in headers:
             headers |= {'User-Agent': _user_agent}
-
         try:
             async with async_timeout.timeout(60):
                 response = await self._session.request(
