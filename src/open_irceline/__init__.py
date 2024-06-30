@@ -1,6 +1,6 @@
 from .api import IrcelineApiError
-from .rio import IrcelineRioClient
+from .data import RioFeature, ForecastFeature, FeatureValue, RioIfdmFeature
 from .forecast import IrcelineForecastClient
-from .data import RioFeature, ForecastFeature, FeatureValue, BelAqiIndex
+from .rio import IrcelineRioClient, IrcelineRioIfdmClient
 
 __version__ = '2.0.0'
