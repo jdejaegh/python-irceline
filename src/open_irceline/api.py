@@ -13,7 +13,6 @@ _rio_wfs_base_url = 'https://geo.irceline.be/wfs'
 _forecast_wms_base_url = 'https://geo.irceline.be/forecast/wms'
 # noinspection HttpUrlsUsage
 # There is not HTTPS version of this endpoint
-_forecast_base_url = 'http://ftp.irceline.be/forecast'
 _user_agent = 'github.com/jdejaegh/python-irceline'
 
 
