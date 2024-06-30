@@ -31,10 +31,13 @@ class RioFeature(IrcelineFeature):
 
 
 class ForecastFeature(IrcelineFeature):
-    NO2_MAXHMEAN = 'chimere_no2_maxhmean'
-    O3_MAXHMEAN = 'chimere_o3_maxhmean'
-    PM10_DMEAN = 'chimere_pm10_dmean'
-    PM25_DMEAN = 'chimere_pm25_dmean'
+    NO2_MAXHMEAN = 'forecast:no2_maxhmean'
+    NO2_DMEAN = 'forecast:no2_dmean'
+    O3_MAXHMEAN = 'forecast:o3_maxhmean'
+    O3_MAX8HMEAN = 'forecast:o3_max8hmean'
+    PM10_DMEAN = 'forecast:pm10_dmean'
+    PM25_DMEAN = 'forecast:pm25_dmean'
+    BELAQI = 'forecast:belaqi'
 
 
 class BelAqiIndex(Enum):
@@ -52,5 +55,5 @@ class BelAqiIndex(Enum):
 
 class FeatureValue(TypedDict):
     # Timestamp at which the value was computed
-    timestamp: datetime | date
+    timestamp: datetime | date | None
     value: int | float | BelAqiIndex | None
