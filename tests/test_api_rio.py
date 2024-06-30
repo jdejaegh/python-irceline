@@ -64,7 +64,7 @@ async def test_format_result_dmean():
 
 
 def test_parse_capabilities():
-    data = get_api_data('capabilities.xml', plain=True)
+    data = get_api_data('rio_capabilities.xml', plain=True)
     result = IrcelineRioClient._parse_capabilities(data)
 
     expected = {'rio:so2_anmean_be', 'rio:o3_hmean', 'rio:bc_anmean_vl', 'rio:o3_anmean_be', 'rio:pm10_hmean_vl',
@@ -117,7 +117,7 @@ async def test_api_rio():
 
 
 async def test_api_rio_get_capabilities():
-    session = get_mock_session(text_file='capabilities.xml')
+    session = get_mock_session(text_file='rio_capabilities.xml')
 
     client = IrcelineRioClient(session)
     _ = await client.get_capabilities()

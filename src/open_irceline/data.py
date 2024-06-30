@@ -1,5 +1,5 @@
 from datetime import datetime, date
-from enum import StrEnum, Enum
+from enum import StrEnum
 from typing import TypedDict
 
 
@@ -30,6 +30,14 @@ class RioFeature(IrcelineFeature):
     SO2_HMEAN = 'rio:so2_hmean'
 
 
+class RioIfdmFeature(IrcelineFeature):
+    PM25_HMEAN = 'rioifdm:pm25_hmean'
+    NO2_HMEAN = 'rioifdm:no2_hmean'
+    PM10_HMEAN = 'rioifdm:pm10_hmean'
+    O3_HMEAN = 'rioifdm:o3_hmean'
+    BELAQI = 'rioifdm:belaqi'
+
+
 class ForecastFeature(IrcelineFeature):
     NO2_MAXHMEAN = 'forecast:no2_maxhmean'
     NO2_DMEAN = 'forecast:no2_dmean'
@@ -40,20 +48,7 @@ class ForecastFeature(IrcelineFeature):
     BELAQI = 'forecast:belaqi'
 
 
-class BelAqiIndex(Enum):
-    EXCELLENT = 1
-    VERY_GOOD = 2
-    GOOD = 3
-    FAIRLY_GOOD = 4
-    MODERATE = 5
-    POOR = 6
-    VERY_POOR = 7
-    BAD = 8
-    VERY_BAD = 9
-    HORRIBLE = 10
-
-
 class FeatureValue(TypedDict):
     # Timestamp at which the value was computed
     timestamp: datetime | date | None
-    value: int | float | BelAqiIndex | None
+    value: int | float | None

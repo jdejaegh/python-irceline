@@ -1,0 +1,694 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE WMT_MS_Capabilities SYSTEM "https://geobelair.irceline.be/schemas/wms/1.1.1/WMS_MS_Capabilities.dtd">
+<WMT_MS_Capabilities version="1.1.1" updateSequence="4129">
+    <Service>
+        <Name>OGC:WMS</Name>
+        <Title>IRCEL - CELINE - Web Map Service</Title>
+        <Abstract>A compliant implementation of WMS plus most of the SLD extension (dynamic styling). Can also generate
+            PDF, SVG, KML, GeoRSS
+        </Abstract>
+        <KeywordList>
+            <Keyword>WFS</Keyword>
+            <Keyword>WMS</Keyword>
+            <Keyword>GEOSERVER</Keyword>
+        </KeywordList>
+        <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                        xlink:href="http://geo.irceline.be/rioifdm/wms"/>
+        <ContactInformation>
+            <ContactPersonPrimary>
+                <ContactPerson>IRCEL - CELINE</ContactPerson>
+                <ContactOrganization>Belgian Interregional Environment Agency</ContactOrganization>
+            </ContactPersonPrimary>
+            <ContactPosition/>
+            <ContactAddress>
+                <AddressType/>
+                <Address>Gaucheretstraat 92-94 Rue Gaucheret</Address>
+                <City>Brussels</City>
+                <StateOrProvince/>
+                <PostCode>1030</PostCode>
+                <Country>Belgium</Country>
+            </ContactAddress>
+            <ContactVoiceTelephone>+(32)(0)2 227 57 01</ContactVoiceTelephone>
+            <ContactFacsimileTelephone/>
+            <ContactElectronicMailAddress>info@irceline.be</ContactElectronicMailAddress>
+        </ContactInformation>
+        <Fees>NONE</Fees>
+        <AccessConstraints>NONE</AccessConstraints>
+    </Service>
+    <Capability>
+        <Request>
+            <GetCapabilities>
+                <Format>application/vnd.ogc.wms_xml</Format>
+                <Format>text/xml</Format>
+                <DCPType>
+                    <HTTP>
+                        <Get>
+                            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                            xlink:href="https://geobelair.irceline.be/rioifdm/wms?SERVICE=WMS&amp;"/>
+                        </Get>
+                        <Post>
+                            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                            xlink:href="https://geobelair.irceline.be/rioifdm/wms?SERVICE=WMS&amp;"/>
+                        </Post>
+                    </HTTP>
+                </DCPType>
+            </GetCapabilities>
+            <GetMap>
+                <Format>image/png</Format>
+                <Format>application/atom xml</Format>
+                <Format>application/atom+xml</Format>
+                <Format>application/json;type=utfgrid</Format>
+                <Format>application/openlayers</Format>
+                <Format>application/openlayers2</Format>
+                <Format>application/openlayers3</Format>
+                <Format>application/pdf</Format>
+                <Format>application/rss xml</Format>
+                <Format>application/rss+xml</Format>
+                <Format>application/vnd.google-earth.kml</Format>
+                <Format>application/vnd.google-earth.kml xml</Format>
+                <Format>application/vnd.google-earth.kml+xml</Format>
+                <Format>application/vnd.google-earth.kml+xml;mode=networklink</Format>
+                <Format>application/vnd.google-earth.kmz</Format>
+                <Format>application/vnd.google-earth.kmz xml</Format>
+                <Format>application/vnd.google-earth.kmz+xml</Format>
+                <Format>application/vnd.google-earth.kmz;mode=networklink</Format>
+                <Format>atom</Format>
+                <Format>image/geotiff</Format>
+                <Format>image/geotiff8</Format>
+                <Format>image/gif</Format>
+                <Format>image/gif;subtype=animated</Format>
+                <Format>image/jpeg</Format>
+                <Format>image/png8</Format>
+                <Format>image/png; mode=8bit</Format>
+                <Format>image/svg</Format>
+                <Format>image/svg xml</Format>
+                <Format>image/svg+xml</Format>
+                <Format>image/tiff</Format>
+                <Format>image/tiff8</Format>
+                <Format>image/vnd.jpeg-png</Format>
+                <Format>image/vnd.jpeg-png8</Format>
+                <Format>kml</Format>
+                <Format>kmz</Format>
+                <Format>openlayers</Format>
+                <Format>rss</Format>
+                <Format>text/html; subtype=openlayers</Format>
+                <Format>text/html; subtype=openlayers2</Format>
+                <Format>text/html; subtype=openlayers3</Format>
+                <Format>utfgrid</Format>
+                <DCPType>
+                    <HTTP>
+                        <Get>
+                            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                            xlink:href="https://geobelair.irceline.be/rioifdm/wms?SERVICE=WMS&amp;"/>
+                        </Get>
+                    </HTTP>
+                </DCPType>
+            </GetMap>
+            <GetFeatureInfo>
+                <Format>text/plain</Format>
+                <Format>application/vnd.ogc.gml</Format>
+                <Format>text/xml</Format>
+                <Format>application/vnd.ogc.gml/3.1.1</Format>
+                <Format>text/xml; subtype=gml/3.1.1</Format>
+                <Format>text/html</Format>
+                <Format>application/json</Format>
+                <DCPType>
+                    <HTTP>
+                        <Get>
+                            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                            xlink:href="https://geobelair.irceline.be/rioifdm/wms?SERVICE=WMS&amp;"/>
+                        </Get>
+                        <Post>
+                            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                            xlink:href="https://geobelair.irceline.be/rioifdm/wms?SERVICE=WMS&amp;"/>
+                        </Post>
+                    </HTTP>
+                </DCPType>
+            </GetFeatureInfo>
+            <DescribeLayer>
+                <Format>application/vnd.ogc.wms_xml</Format>
+                <DCPType>
+                    <HTTP>
+                        <Get>
+                            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                            xlink:href="https://geobelair.irceline.be/rioifdm/wms?SERVICE=WMS&amp;"/>
+                        </Get>
+                    </HTTP>
+                </DCPType>
+            </DescribeLayer>
+            <GetLegendGraphic>
+                <Format>image/png</Format>
+                <Format>image/jpeg</Format>
+                <Format>application/json</Format>
+                <Format>image/gif</Format>
+                <DCPType>
+                    <HTTP>
+                        <Get>
+                            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                            xlink:href="https://geobelair.irceline.be/rioifdm/wms?SERVICE=WMS&amp;"/>
+                        </Get>
+                    </HTTP>
+                </DCPType>
+            </GetLegendGraphic>
+            <GetStyles>
+                <Format>application/vnd.ogc.sld+xml</Format>
+                <DCPType>
+                    <HTTP>
+                        <Get>
+                            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                            xlink:href="https://geobelair.irceline.be/rioifdm/wms?SERVICE=WMS&amp;"/>
+                        </Get>
+                    </HTTP>
+                </DCPType>
+            </GetStyles>
+        </Request>
+        <Exception>
+            <Format>application/vnd.ogc.se_xml</Format>
+            <Format>application/vnd.ogc.se_inimage</Format>
+            <Format>application/vnd.ogc.se_blank</Format>
+            <Format>application/json</Format>
+        </Exception>
+        <UserDefinedSymbolization SupportSLD="1" UserLayer="1" UserStyle="1" RemoteWFS="1"/>
+        <Layer>
+            <Title>IRCEL - CELINE - Web Map Service</Title>
+            <Abstract>A compliant implementation of WMS plus most of the SLD extension (dynamic styling). Can also
+                generate PDF, SVG, KML, GeoRSS
+            </Abstract>
+            <!--Limited list of EPSG projections:-->
+            <SRS>EPSG:3857</SRS>
+            <SRS>EPSG:4258</SRS>
+            <SRS>EPSG:4326</SRS>
+            <SRS>EPSG:31370</SRS>
+            <SRS>EPSG:900913</SRS>
+            <LatLonBoundingBox minx="2.4804079470216474" miny="49.461523892203324" maxx="6.494748595696256"
+                               maxy="51.54189845090732"/>
+            <AuthorityURL name="IRCEL - CELINE">
+                <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://geo.irceline.be"/>
+            </AuthorityURL>
+            <Identifier authority="IRCEL - CELINE">http://geo.irceline.be</Identifier>
+            <Layer queryable="1" opaque="0">
+                <Name>belaqi</Name>
+                <Title>belaqi</Title>
+                <Abstract/>
+                <KeywordList>
+                    <Keyword>belaqi</Keyword>
+                    <Keyword>WCS</Keyword>
+                    <Keyword>GeoTIFF</Keyword>
+                </KeywordList>
+                <SRS>EPSG:31370</SRS>
+                <LatLonBoundingBox minx="2.4804079470216474" miny="49.461523892203324" maxx="6.494748595696256"
+                                   maxy="51.54189845090732"/>
+                <BoundingBox SRS="EPSG:31370" minx="18950.0" miny="18650.0" maxx="297550.0" maxy="248050.0"/>
+                <Style>
+                    <Name>belaqi_raster_discrete_belair</Name>
+                    <Title>AQ index for raster (discrete colour schale)</Title>
+                    <Abstract>BelAQI index colour scale. Classic concentration color progression.</Abstract>
+                    <LegendURL width="36" height="250">
+                        <Format>image/png</Format>
+                        <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                        xlink:href="https://geobelair.irceline.be/rioifdm/wms?request=GetLegendGraphic&amp;version=1.1.1&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=belaqi"/>
+                    </LegendURL>
+                </Style>
+            </Layer>
+            <Layer queryable="1" opaque="0">
+                <Name>belaqi_dm1</Name>
+                <Title>belaqi_dm1</Title>
+                <Abstract/>
+                <KeywordList>
+                    <Keyword>belaqi_dmean_dm1</Keyword>
+                    <Keyword>WCS</Keyword>
+                    <Keyword>GeoTIFF</Keyword>
+                </KeywordList>
+                <SRS>EPSG:31370</SRS>
+                <LatLonBoundingBox minx="2.4804079470216474" miny="49.461523892203324" maxx="6.494748595696256"
+                                   maxy="51.54189845090732"/>
+                <BoundingBox SRS="EPSG:31370" minx="18950.0" miny="18650.0" maxx="297550.0" maxy="248050.0"/>
+                <Style>
+                    <Name>belaqi_raster_discrete_belair</Name>
+                    <Title>AQ index for raster (discrete colour schale)</Title>
+                    <Abstract>BelAQI index colour scale. Classic concentration color progression.</Abstract>
+                    <LegendURL width="36" height="250">
+                        <Format>image/png</Format>
+                        <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                        xlink:href="https://geobelair.irceline.be/rioifdm/wms?request=GetLegendGraphic&amp;version=1.1.1&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=belaqi_dm1"/>
+                    </LegendURL>
+                </Style>
+            </Layer>
+            <Layer queryable="1" opaque="0">
+                <Name>belaqi_dm2</Name>
+                <Title>belaqi_dm2</Title>
+                <Abstract/>
+                <KeywordList>
+                    <Keyword>belaqi_dmean_dm2</Keyword>
+                    <Keyword>WCS</Keyword>
+                    <Keyword>GeoTIFF</Keyword>
+                </KeywordList>
+                <SRS>EPSG:31370</SRS>
+                <LatLonBoundingBox minx="2.4804079470216474" miny="49.461523892203324" maxx="6.494748595696256"
+                                   maxy="51.54189845090732"/>
+                <BoundingBox SRS="EPSG:31370" minx="18950.0" miny="18650.0" maxx="297550.0" maxy="248050.0"/>
+                <Style>
+                    <Name>belaqi_raster_discrete_belair</Name>
+                    <Title>AQ index for raster (discrete colour schale)</Title>
+                    <Abstract>BelAQI index colour scale. Classic concentration color progression.</Abstract>
+                    <LegendURL width="36" height="250">
+                        <Format>image/png</Format>
+                        <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                        xlink:href="https://geobelair.irceline.be/rioifdm/wms?request=GetLegendGraphic&amp;version=1.1.1&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=belaqi_dm2"/>
+                    </LegendURL>
+                </Style>
+            </Layer>
+            <Layer queryable="1" opaque="0">
+                <Name>belaqi_dm3</Name>
+                <Title>belaqi_dm3</Title>
+                <Abstract/>
+                <KeywordList>
+                    <Keyword>belaqi_dmean_dm3</Keyword>
+                    <Keyword>WCS</Keyword>
+                    <Keyword>GeoTIFF</Keyword>
+                </KeywordList>
+                <SRS>EPSG:31370</SRS>
+                <LatLonBoundingBox minx="2.4804079470216474" miny="49.461523892203324" maxx="6.494748595696256"
+                                   maxy="51.54189845090732"/>
+                <BoundingBox SRS="EPSG:31370" minx="18950.0" miny="18650.0" maxx="297550.0" maxy="248050.0"/>
+                <Style>
+                    <Name>belaqi_raster_discrete_belair</Name>
+                    <Title>AQ index for raster (discrete colour schale)</Title>
+                    <Abstract>BelAQI index colour scale. Classic concentration color progression.</Abstract>
+                    <LegendURL width="36" height="250">
+                        <Format>image/png</Format>
+                        <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                        xlink:href="https://geobelair.irceline.be/rioifdm/wms?request=GetLegendGraphic&amp;version=1.1.1&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=belaqi_dm3"/>
+                    </LegendURL>
+                </Style>
+            </Layer>
+            <Layer queryable="1" opaque="0">
+                <Name>no2_dm1</Name>
+                <Title>no2_dm1</Title>
+                <Abstract/>
+                <KeywordList>
+                    <Keyword>no2_dmean_dm1</Keyword>
+                    <Keyword>WCS</Keyword>
+                    <Keyword>GeoTIFF</Keyword>
+                </KeywordList>
+                <SRS>EPSG:31370</SRS>
+                <LatLonBoundingBox minx="2.4804079470216474" miny="49.461523892203324" maxx="6.494748595696256"
+                                   maxy="51.54189845090732"/>
+                <BoundingBox SRS="EPSG:31370" minx="18950.0" miny="18650.0" maxx="297550.0" maxy="248050.0"/>
+                <Style>
+                    <Name>no2_dmean_raster_discrete_belair</Name>
+                    <Title>Nitrogen dioxide (NO2) daily mean concentrations</Title>
+                    <Abstract>BelAQI index colour scale. Daily mean concentration classes for Nitrogen dioxide (NO2).
+                    </Abstract>
+                    <LegendURL width="80" height="252">
+                        <Format>image/png</Format>
+                        <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                        xlink:href="https://geobelair.irceline.be/rioifdm/wms?request=GetLegendGraphic&amp;version=1.1.1&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=no2_dm1"/>
+                    </LegendURL>
+                </Style>
+            </Layer>
+            <Layer queryable="1" opaque="0">
+                <Name>no2_dm2</Name>
+                <Title>no2_dm2</Title>
+                <Abstract/>
+                <KeywordList>
+                    <Keyword>no2_dmean_dm2</Keyword>
+                    <Keyword>WCS</Keyword>
+                    <Keyword>GeoTIFF</Keyword>
+                </KeywordList>
+                <SRS>EPSG:31370</SRS>
+                <LatLonBoundingBox minx="2.4804079470216474" miny="49.461523892203324" maxx="6.494748595696256"
+                                   maxy="51.54189845090732"/>
+                <BoundingBox SRS="EPSG:31370" minx="18950.0" miny="18650.0" maxx="297550.0" maxy="248050.0"/>
+                <Style>
+                    <Name>no2_dmean_raster_discrete_belair</Name>
+                    <Title>Nitrogen dioxide (NO2) daily mean concentrations</Title>
+                    <Abstract>BelAQI index colour scale. Daily mean concentration classes for Nitrogen dioxide (NO2).
+                    </Abstract>
+                    <LegendURL width="80" height="252">
+                        <Format>image/png</Format>
+                        <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                        xlink:href="https://geobelair.irceline.be/rioifdm/wms?request=GetLegendGraphic&amp;version=1.1.1&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=no2_dm2"/>
+                    </LegendURL>
+                </Style>
+            </Layer>
+            <Layer queryable="1" opaque="0">
+                <Name>no2_dm3</Name>
+                <Title>no2_dm3</Title>
+                <Abstract/>
+                <KeywordList>
+                    <Keyword>no2_dmean_dm3</Keyword>
+                    <Keyword>WCS</Keyword>
+                    <Keyword>GeoTIFF</Keyword>
+                </KeywordList>
+                <SRS>EPSG:31370</SRS>
+                <LatLonBoundingBox minx="2.4804079470216474" miny="49.461523892203324" maxx="6.494748595696256"
+                                   maxy="51.54189845090732"/>
+                <BoundingBox SRS="EPSG:31370" minx="18950.0" miny="18650.0" maxx="297550.0" maxy="248050.0"/>
+                <Style>
+                    <Name>no2_dmean_raster_discrete_belair</Name>
+                    <Title>Nitrogen dioxide (NO2) daily mean concentrations</Title>
+                    <Abstract>BelAQI index colour scale. Daily mean concentration classes for Nitrogen dioxide (NO2).
+                    </Abstract>
+                    <LegendURL width="80" height="252">
+                        <Format>image/png</Format>
+                        <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                        xlink:href="https://geobelair.irceline.be/rioifdm/wms?request=GetLegendGraphic&amp;version=1.1.1&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=no2_dm3"/>
+                    </LegendURL>
+                </Style>
+            </Layer>
+            <Layer queryable="1" opaque="0">
+                <Name>no2_hmean</Name>
+                <Title>no2_hmean</Title>
+                <Abstract/>
+                <KeywordList>
+                    <Keyword>no2_hmean</Keyword>
+                    <Keyword>WCS</Keyword>
+                    <Keyword>GeoTIFF</Keyword>
+                </KeywordList>
+                <SRS>EPSG:31370</SRS>
+                <LatLonBoundingBox minx="2.4804079470216474" miny="49.461523892203324" maxx="6.494748595696256"
+                                   maxy="51.54189845090732"/>
+                <BoundingBox SRS="EPSG:31370" minx="18950.0" miny="18650.0" maxx="297550.0" maxy="248050.0"/>
+                <Style>
+                    <Name>no2_hmean_raster_discrete_belair</Name>
+                    <Title>Nitrogen dioxide (NO2) hourly mean concentrations</Title>
+                    <Abstract>BelAQI index colour scale. Hourly mean concentration classes for Nitrogen dioxide (NO2).
+                    </Abstract>
+                    <LegendURL width="80" height="252">
+                        <Format>image/png</Format>
+                        <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                        xlink:href="https://geobelair.irceline.be/rioifdm/wms?request=GetLegendGraphic&amp;version=1.1.1&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=no2_hmean"/>
+                    </LegendURL>
+                </Style>
+            </Layer>
+            <Layer queryable="1" opaque="0">
+                <Name>o3_dm1</Name>
+                <Title>o3_dm1</Title>
+                <Abstract/>
+                <KeywordList>
+                    <Keyword>o3_max8hmean_dm1</Keyword>
+                    <Keyword>WCS</Keyword>
+                    <Keyword>GeoTIFF</Keyword>
+                </KeywordList>
+                <SRS>EPSG:31370</SRS>
+                <LatLonBoundingBox minx="2.4804079470216474" miny="49.461523892203324" maxx="6.494748595696256"
+                                   maxy="51.54189845090732"/>
+                <BoundingBox SRS="EPSG:31370" minx="18950.0" miny="18650.0" maxx="297550.0" maxy="248050.0"/>
+                <Style>
+                    <Name>o3_max8hmean_raster_discrete_belair</Name>
+                    <Title>Ozone (O3) daily max 8-hourly mean concentrations</Title>
+                    <Abstract>BelAQI index colour scale. Daily max 8-hourly mean concentration classes for Ozone (O3).
+                    </Abstract>
+                    <LegendURL width="87" height="252">
+                        <Format>image/png</Format>
+                        <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                        xlink:href="https://geobelair.irceline.be/rioifdm/wms?request=GetLegendGraphic&amp;version=1.1.1&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=o3_dm1"/>
+                    </LegendURL>
+                </Style>
+            </Layer>
+            <Layer queryable="1" opaque="0">
+                <Name>o3_dm2</Name>
+                <Title>o3_dm2</Title>
+                <Abstract/>
+                <KeywordList>
+                    <Keyword>o3_max8hmean_dm2</Keyword>
+                    <Keyword>WCS</Keyword>
+                    <Keyword>GeoTIFF</Keyword>
+                </KeywordList>
+                <SRS>EPSG:31370</SRS>
+                <LatLonBoundingBox minx="2.4804079470216474" miny="49.461523892203324" maxx="6.494748595696256"
+                                   maxy="51.54189845090732"/>
+                <BoundingBox SRS="EPSG:31370" minx="18950.0" miny="18650.0" maxx="297550.0" maxy="248050.0"/>
+                <Style>
+                    <Name>o3_max8hmean_raster_discrete_belair</Name>
+                    <Title>Ozone (O3) daily max 8-hourly mean concentrations</Title>
+                    <Abstract>BelAQI index colour scale. Daily max 8-hourly mean concentration classes for Ozone (O3).
+                    </Abstract>
+                    <LegendURL width="87" height="252">
+                        <Format>image/png</Format>
+                        <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                        xlink:href="https://geobelair.irceline.be/rioifdm/wms?request=GetLegendGraphic&amp;version=1.1.1&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=o3_dm2"/>
+                    </LegendURL>
+                </Style>
+            </Layer>
+            <Layer queryable="1" opaque="0">
+                <Name>o3_dm3</Name>
+                <Title>o3_dm3</Title>
+                <Abstract/>
+                <KeywordList>
+                    <Keyword>o3_max8hmean_dm3</Keyword>
+                    <Keyword>WCS</Keyword>
+                    <Keyword>GeoTIFF</Keyword>
+                </KeywordList>
+                <SRS>EPSG:31370</SRS>
+                <LatLonBoundingBox minx="2.4804079470216474" miny="49.461523892203324" maxx="6.494748595696256"
+                                   maxy="51.54189845090732"/>
+                <BoundingBox SRS="EPSG:31370" minx="18950.0" miny="18650.0" maxx="297550.0" maxy="248050.0"/>
+                <Style>
+                    <Name>o3_max8hmean_raster_discrete_belair</Name>
+                    <Title>Ozone (O3) daily max 8-hourly mean concentrations</Title>
+                    <Abstract>BelAQI index colour scale. Daily max 8-hourly mean concentration classes for Ozone (O3).
+                    </Abstract>
+                    <LegendURL width="87" height="252">
+                        <Format>image/png</Format>
+                        <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                        xlink:href="https://geobelair.irceline.be/rioifdm/wms?request=GetLegendGraphic&amp;version=1.1.1&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=o3_dm3"/>
+                    </LegendURL>
+                </Style>
+            </Layer>
+            <Layer queryable="1" opaque="0">
+                <Name>o3_hmean</Name>
+                <Title>o3_hmean</Title>
+                <Abstract/>
+                <KeywordList>
+                    <Keyword>o3_hmean</Keyword>
+                    <Keyword>WCS</Keyword>
+                    <Keyword>GeoTIFF</Keyword>
+                </KeywordList>
+                <SRS>EPSG:31370</SRS>
+                <LatLonBoundingBox minx="2.4804079470216474" miny="49.461523892203324" maxx="6.494748595696256"
+                                   maxy="51.54189845090732"/>
+                <BoundingBox SRS="EPSG:31370" minx="18950.0" miny="18650.0" maxx="297550.0" maxy="248050.0"/>
+                <Style>
+                    <Name>o3_hmean_raster_discrete_belair</Name>
+                    <Title>Ozone (O3) hourly mean concentrations</Title>
+                    <Abstract>BelAQI index colour scale. Annual mean concentration classes for Ozone (O3).</Abstract>
+                    <LegendURL width="87" height="252">
+                        <Format>image/png</Format>
+                        <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                        xlink:href="https://geobelair.irceline.be/rioifdm/wms?request=GetLegendGraphic&amp;version=1.1.1&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=o3_hmean"/>
+                    </LegendURL>
+                </Style>
+            </Layer>
+            <Layer queryable="1" opaque="0">
+                <Name>pm10_dm1</Name>
+                <Title>pm10_dm1</Title>
+                <Abstract/>
+                <KeywordList>
+                    <Keyword>pm10_dmean_dm1</Keyword>
+                    <Keyword>WCS</Keyword>
+                    <Keyword>GeoTIFF</Keyword>
+                </KeywordList>
+                <SRS>EPSG:31370</SRS>
+                <LatLonBoundingBox minx="2.4804079470216474" miny="49.461523892203324" maxx="6.494748595696256"
+                                   maxy="51.54189845090732"/>
+                <BoundingBox SRS="EPSG:31370" minx="18950.0" miny="18650.0" maxx="297550.0" maxy="248050.0"/>
+                <Style>
+                    <Name>pm10_dmean_raster_discrete_belair</Name>
+                    <Title>particulate matter (PM10) daily mean concentrations</Title>
+                    <Abstract>BelAQI index colour scale. Daily mean concentration classes for particulate matter
+                        (PM10).
+                    </Abstract>
+                    <LegendURL width="87" height="252">
+                        <Format>image/png</Format>
+                        <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                        xlink:href="https://geobelair.irceline.be/rioifdm/wms?request=GetLegendGraphic&amp;version=1.1.1&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=pm10_dm1"/>
+                    </LegendURL>
+                </Style>
+            </Layer>
+            <Layer queryable="1" opaque="0">
+                <Name>pm10_dm2</Name>
+                <Title>pm10_dm2</Title>
+                <Abstract/>
+                <KeywordList>
+                    <Keyword>pm10_dmean_dm2</Keyword>
+                    <Keyword>WCS</Keyword>
+                    <Keyword>GeoTIFF</Keyword>
+                </KeywordList>
+                <SRS>EPSG:31370</SRS>
+                <LatLonBoundingBox minx="2.4804079470216474" miny="49.461523892203324" maxx="6.494748595696256"
+                                   maxy="51.54189845090732"/>
+                <BoundingBox SRS="EPSG:31370" minx="18950.0" miny="18650.0" maxx="297550.0" maxy="248050.0"/>
+                <Style>
+                    <Name>pm10_dmean_raster_discrete_belair</Name>
+                    <Title>particulate matter (PM10) daily mean concentrations</Title>
+                    <Abstract>BelAQI index colour scale. Daily mean concentration classes for particulate matter
+                        (PM10).
+                    </Abstract>
+                    <LegendURL width="87" height="252">
+                        <Format>image/png</Format>
+                        <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                        xlink:href="https://geobelair.irceline.be/rioifdm/wms?request=GetLegendGraphic&amp;version=1.1.1&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=pm10_dm2"/>
+                    </LegendURL>
+                </Style>
+            </Layer>
+            <Layer queryable="1" opaque="0">
+                <Name>pm10_dm3</Name>
+                <Title>pm10_dm3</Title>
+                <Abstract/>
+                <KeywordList>
+                    <Keyword>pm10_dmean_dm3</Keyword>
+                    <Keyword>WCS</Keyword>
+                    <Keyword>GeoTIFF</Keyword>
+                </KeywordList>
+                <SRS>EPSG:31370</SRS>
+                <LatLonBoundingBox minx="2.4804079470216474" miny="49.461523892203324" maxx="6.494748595696256"
+                                   maxy="51.54189845090732"/>
+                <BoundingBox SRS="EPSG:31370" minx="18950.0" miny="18650.0" maxx="297550.0" maxy="248050.0"/>
+                <Style>
+                    <Name>pm10_dmean_raster_discrete_belair</Name>
+                    <Title>particulate matter (PM10) daily mean concentrations</Title>
+                    <Abstract>BelAQI index colour scale. Daily mean concentration classes for particulate matter
+                        (PM10).
+                    </Abstract>
+                    <LegendURL width="87" height="252">
+                        <Format>image/png</Format>
+                        <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                        xlink:href="https://geobelair.irceline.be/rioifdm/wms?request=GetLegendGraphic&amp;version=1.1.1&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=pm10_dm3"/>
+                    </LegendURL>
+                </Style>
+            </Layer>
+            <Layer queryable="1" opaque="0">
+                <Name>pm10_hmean</Name>
+                <Title>pm10_hmean</Title>
+                <Abstract/>
+                <KeywordList>
+                    <Keyword>pm10_hmean</Keyword>
+                    <Keyword>WCS</Keyword>
+                    <Keyword>GeoTIFF</Keyword>
+                </KeywordList>
+                <SRS>EPSG:31370</SRS>
+                <LatLonBoundingBox minx="2.4804079470216474" miny="49.461523892203324" maxx="6.494748595696256"
+                                   maxy="51.54189845090732"/>
+                <BoundingBox SRS="EPSG:31370" minx="18950.0" miny="18650.0" maxx="297550.0" maxy="248050.0"/>
+                <Style>
+                    <Name>pm10_hmean_raster_discrete_belair</Name>
+                    <Title>particulate matter (PM10) hourly mean concentrations</Title>
+                    <Abstract>BelAQI index colour scale. Hourly mean concentration classes for particulate matter
+                        (PM10).
+                    </Abstract>
+                    <LegendURL width="87" height="252">
+                        <Format>image/png</Format>
+                        <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                        xlink:href="https://geobelair.irceline.be/rioifdm/wms?request=GetLegendGraphic&amp;version=1.1.1&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=pm10_hmean"/>
+                    </LegendURL>
+                </Style>
+            </Layer>
+            <Layer queryable="1" opaque="0">
+                <Name>pm25_dm1</Name>
+                <Title>pm25_dm1</Title>
+                <Abstract/>
+                <KeywordList>
+                    <Keyword>pm25_dmean_dm1</Keyword>
+                    <Keyword>WCS</Keyword>
+                    <Keyword>GeoTIFF</Keyword>
+                </KeywordList>
+                <SRS>EPSG:31370</SRS>
+                <LatLonBoundingBox minx="2.4804079470216474" miny="49.461523892203324" maxx="6.494748595696256"
+                                   maxy="51.54189845090732"/>
+                <BoundingBox SRS="EPSG:31370" minx="18950.0" miny="18650.0" maxx="297550.0" maxy="248050.0"/>
+                <Style>
+                    <Name>pm25_dmean_raster_discrete_belair</Name>
+                    <Title>particulate matter (PM25) daily mean concentrations</Title>
+                    <Abstract>BelAQI index colour scale. Daily mean concentration classes for particulate matter
+                        (PM25).
+                    </Abstract>
+                    <LegendURL width="87" height="252">
+                        <Format>image/png</Format>
+                        <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                        xlink:href="https://geobelair.irceline.be/rioifdm/wms?request=GetLegendGraphic&amp;version=1.1.1&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=pm25_dm1"/>
+                    </LegendURL>
+                </Style>
+            </Layer>
+            <Layer queryable="1" opaque="0">
+                <Name>pm25_dm2</Name>
+                <Title>pm25_dm2</Title>
+                <Abstract/>
+                <KeywordList>
+                    <Keyword>pm25_dmean_dm2</Keyword>
+                    <Keyword>WCS</Keyword>
+                    <Keyword>GeoTIFF</Keyword>
+                </KeywordList>
+                <SRS>EPSG:31370</SRS>
+                <LatLonBoundingBox minx="2.4804079470216474" miny="49.461523892203324" maxx="6.494748595696256"
+                                   maxy="51.54189845090732"/>
+                <BoundingBox SRS="EPSG:31370" minx="18950.0" miny="18650.0" maxx="297550.0" maxy="248050.0"/>
+                <Style>
+                    <Name>pm25_dmean_raster_discrete_belair</Name>
+                    <Title>particulate matter (PM25) daily mean concentrations</Title>
+                    <Abstract>BelAQI index colour scale. Daily mean concentration classes for particulate matter
+                        (PM25).
+                    </Abstract>
+                    <LegendURL width="87" height="252">
+                        <Format>image/png</Format>
+                        <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                        xlink:href="https://geobelair.irceline.be/rioifdm/wms?request=GetLegendGraphic&amp;version=1.1.1&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=pm25_dm2"/>
+                    </LegendURL>
+                </Style>
+            </Layer>
+            <Layer queryable="1" opaque="0">
+                <Name>pm25_dm3</Name>
+                <Title>pm25_dm3</Title>
+                <Abstract/>
+                <KeywordList>
+                    <Keyword>pm25_dmean_dm3</Keyword>
+                    <Keyword>WCS</Keyword>
+                    <Keyword>GeoTIFF</Keyword>
+                </KeywordList>
+                <SRS>EPSG:31370</SRS>
+                <LatLonBoundingBox minx="2.4804079470216474" miny="49.461523892203324" maxx="6.494748595696256"
+                                   maxy="51.54189845090732"/>
+                <BoundingBox SRS="EPSG:31370" minx="18950.0" miny="18650.0" maxx="297550.0" maxy="248050.0"/>
+                <Style>
+                    <Name>pm25_dmean_raster_discrete_belair</Name>
+                    <Title>particulate matter (PM25) daily mean concentrations</Title>
+                    <Abstract>BelAQI index colour scale. Daily mean concentration classes for particulate matter
+                        (PM25).
+                    </Abstract>
+                    <LegendURL width="87" height="252">
+                        <Format>image/png</Format>
+                        <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                        xlink:href="https://geobelair.irceline.be/rioifdm/wms?request=GetLegendGraphic&amp;version=1.1.1&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=pm25_dm3"/>
+                    </LegendURL>
+                </Style>
+            </Layer>
+            <Layer queryable="1" opaque="0">
+                <Name>pm25_hmean</Name>
+                <Title>pm25_hmean</Title>
+                <Abstract/>
+                <KeywordList>
+                    <Keyword>pm25_hmean</Keyword>
+                    <Keyword>WCS</Keyword>
+                    <Keyword>GeoTIFF</Keyword>
+                </KeywordList>
+                <SRS>EPSG:31370</SRS>
+                <LatLonBoundingBox minx="2.4804079470216474" miny="49.461523892203324" maxx="6.494748595696256"
+                                   maxy="51.54189845090732"/>
+                <BoundingBox SRS="EPSG:31370" minx="18950.0" miny="18650.0" maxx="297550.0" maxy="248050.0"/>
+                <Style>
+                    <Name>pm25_hmean_raster_discrete_belair</Name>
+                    <Title>particulate matter (PM25) hourly mean concentrations</Title>
+                    <Abstract>BelAQI index colour scale. Hourly mean concentration classes for particulate matter
+                        (PM25).
+                    </Abstract>
+                    <LegendURL width="87" height="252">
+                        <Format>image/png</Format>
+                        <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
+                                        xlink:href="https://geobelair.irceline.be/rioifdm/wms?request=GetLegendGraphic&amp;version=1.1.1&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=pm25_hmean"/>
+                    </LegendURL>
+                </Style>
+            </Layer>
+        </Layer>
+    </Capability>
+</WMT_MS_Capabilities>

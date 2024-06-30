@@ -2,15 +2,19 @@ from datetime import datetime, date, UTC, timedelta
 from typing import List, Tuple, Dict, Set
 from xml.etree import ElementTree
 
-from aiohttp import ClientResponse
+from aiohttp import ClientResponse, ClientResponseError
 
-from .api import IrcelineBaseClient, _rio_wfs_base_url, IrcelineApiError
-from .data import RioFeature, FeatureValue
+from .api import IrcelineBaseClient, _rio_wfs_base_url, IrcelineApiError, _rio_ifdm_wms_base_url, IrcelineBaseWmsClient
+from .data import RioFeature, FeatureValue, RioIfdmFeature
 from .utils import epsg_transform
 
 
 class IrcelineRioClient(IrcelineBaseClient):
-    """API client for RIO interpolated IRCEL - CELINE open data"""
+    """
+    API client for RIO interpolated IRCEL - CELINE open data
+    RIO is more coarse grained for interpolation than RIO IFDM and allows to request multiple features in the same
+        request, which may be faster.
+    """
 
     async def get_data(self,
                        features: List[RioFeature],
@@ -122,5 +126,43 @@ class IrcelineRioClient(IrcelineBaseClient):
                 continue
             if name not in result or result[name]['timestamp'] < timestamp:
                 result[name] = FeatureValue(timestamp=timestamp, value=value)
+
+        return result
+
+
+class IrcelineRioIfdmClient(IrcelineBaseWmsClient):
+    """
+    API client for RIO IFDM interpolated IRCEL - CELINE open data
+    RIO IFDM is more fine-grained for interpolation than RIO but only allows one feature to be request at a time, which
+    may be slower
+    """
+    _base_url = _rio_ifdm_wms_base_url
+
+    async def get_data(self,
+                       features: List[RioIfdmFeature],
+                       position: Tuple[float, float]
+                       ) -> Dict[RioIfdmFeature, FeatureValue]:
+        """
+        Get interpolated concentrations for the given features at the given position.
+        :param features: pollutants to get the forecasts for
+        :param position: (lat, long)
+        :return: dict where key is RioIfdmFeature and value is a FeatureValue
+        """
+        result = dict()
+        lat, lon = position
+        base_querystring = (self._default_querystring |
+                            {"bbox": f"{lon},{lat},{lon + self._epsilon},{lat + self._epsilon}"})
+        print({"bbox": f"{lon},{lat},{lon + self._epsilon},{lat + self._epsilon}"})
+
+        for feature in features:
+            querystring = base_querystring | {"layers": f"{feature}", "query_layers": f"{feature}"}
+            try:
+                r: ClientResponse = await self._api_wrapper(self._base_url, querystring)
+                r: dict = await r.json()
+                result[feature] = FeatureValue(
+                    value=r.get('features', [{}])[0].get('properties', {}).get('GRAY_INDEX'),
+                    timestamp=datetime.fromisoformat(r.get('timeStamp')) if 'timeStamp' in r else None)
+            except (IrcelineApiError, ClientResponseError, IndexError):
+                result[feature] = FeatureValue(value=None, timestamp=None)
 
         return result

@@ -95,7 +95,7 @@ async def test_api_forecast():
     client = IrcelineForecastClient(session)
 
     features = [ForecastFeature.NO2_DMEAN, ForecastFeature.O3_MAXHMEAN]
-    _ = await client.get_data(features, pos)
+    result = await client.get_data(features, pos)
 
     base = {"service": "WMS",
             "version": "1.1.1",
@@ -118,6 +118,9 @@ async def test_api_forecast():
         for feature, d in product(features, range(4))]
 
     session.request.assert_has_calls(calls, any_order=True)
+
+    for k, v in result.items():
+        assert v['value'] == 10.853286743164062
 
 
 def test_parse_capabilities_with_error():
