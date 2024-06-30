@@ -2,7 +2,7 @@ from datetime import datetime, date
 
 from freezegun import freeze_time
 
-from src.open_irceline.api import IrcelineRioClient
+from src.open_irceline import IrcelineRioClient
 from src.open_irceline.api import _rio_wfs_base_url, _user_agent
 from src.open_irceline.data import RioFeature, FeatureValue
 from src.open_irceline.utils import epsg_transform
@@ -99,7 +99,7 @@ async def test_api_rio():
 
     d = date(2024, 6, 18)
     features = [RioFeature.NO2_HMEAN, RioFeature.O3_HMEAN]
-    _ = await client.get_data(d, features, pos)
+    _ = await client.get_data(features, pos, d)
     session.request.assert_called_once_with(
         method='GET',
         url=_rio_wfs_base_url,
@@ -120,7 +120,7 @@ async def test_api_rio_get_capabilities():
     session = get_mock_session(text_file='capabilities.xml')
 
     client = IrcelineRioClient(session)
-    _ = await client.get_rio_capabilities()
+    _ = await client.get_capabilities()
 
     session.request.assert_called_once_with(
         method='GET',
