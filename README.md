@@ -24,9 +24,8 @@ pip install open-irceline
 ```python
 import aiohttp
 import asyncio
-from datetime import datetime, date
-
-from open_irceline import IrcelineRioClient, RioFeature, IrcelineForecastClient, ForecastFeature, belaqi_index_rio_hourly
+from datetime import datetime
+from open_irceline import IrcelineRioClient, IrcelineForecastClient, ForecastFeature, RioFeature
 
 
 async def get_rio_interpolated_data():
@@ -43,12 +42,11 @@ async def get_rio_interpolated_data():
     print(f"PM10   {result[RioFeature.PM10_HMEAN]['value']} µg/m³")
 
 
-async def get_forecast():
+async def get_o3_forecast():
     """Get forecast for O3 concentration for Brussels for the next days"""
     async with aiohttp.ClientSession() as session:
         client = IrcelineForecastClient(session)
         result = await client.get_data(
-            timestamp=date.today(),
             features=[ForecastFeature.O3_MAXHMEAN],
             position=(50.85, 4.35)  # (lat, lon) for Brussels
         )
@@ -57,28 +55,28 @@ async def get_forecast():
         print(f"{feature} {day} {v['value']} µg/m³")
 
 
-async def get_current_belaqi():
+async def get_belaqi_forecast():
     """Get current BelAQI index from RIO interpolated values"""
     async with aiohttp.ClientSession() as session:
-        client = IrcelineRioClient(session)
-        result = await belaqi_index_rio_hourly(
-            rio_client=client,
-            timestamp=datetime.utcnow(),  # must be timezone aware
+        client = IrcelineForecastClient(session)
+        result = await client.get_data(
+            features=[ForecastFeature.BELAQI],
             position=(50.85, 4.35)        # (lat, lon) for Brussels
         )
 
-    print(f"Current BelAQI index for Brussels: {result.get('value')}")
+    for (_, day), value in result.items():
+        print(day, value['value'])
 
 
 if __name__ == '__main__':
-    print("RIO interpolated data")
+    print("\nInterpolated data")
     asyncio.run(get_rio_interpolated_data())
 
     print("\nO3 forecast for Brussels")
-    asyncio.run(get_forecast())
+    asyncio.run(get_o3_forecast())
 
-    print("\nCurrent BelAQI index")
-    asyncio.run(get_current_belaqi())
+    print("\nForecast BelAQI index")
+    asyncio.run(get_belaqi_forecast())
 ```
 
 ## Attribution
