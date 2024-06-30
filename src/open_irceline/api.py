@@ -9,7 +9,6 @@ import async_timeout
 from aiohttp import ClientResponse
 
 from .data import IrcelineFeature
-from .utils import SizedDict
 
 _rio_wfs_base_url = 'https://geo.irceline.be/wfs'
 _forecast_wms_base_url = 'https://geo.irceline.be/forecast/wms'
@@ -22,9 +21,8 @@ class IrcelineApiError(Exception):
 
 
 class IrcelineBaseClient(ABC):
-    def __init__(self, session: aiohttp.ClientSession, cache_size: int = 20) -> None:
+    def __init__(self, session: aiohttp.ClientSession) -> None:
         self._session = session
-        self._cache = SizedDict(cache_size)
 
     @abstractmethod
     async def get_data(self,

@@ -1,3 +1,4 @@
+import asyncio
 from datetime import datetime, date, UTC, timedelta
 from typing import List, Tuple, Dict, Set
 from xml.etree import ElementTree
@@ -152,17 +153,24 @@ class IrcelineRioIfdmClient(IrcelineBaseWmsClient):
         lat, lon = position
         base_querystring = (self._default_querystring |
                             {"bbox": f"{lon},{lat},{lon + self._epsilon},{lat + self._epsilon}"})
-        print({"bbox": f"{lon},{lat},{lon + self._epsilon},{lat + self._epsilon}"})
 
-        for feature in features:
-            querystring = base_querystring | {"layers": f"{feature}", "query_layers": f"{feature}"}
-            try:
-                r: ClientResponse = await self._api_wrapper(self._base_url, querystring)
-                r: dict = await r.json()
-                result[feature] = FeatureValue(
-                    value=r.get('features', [{}])[0].get('properties', {}).get('GRAY_INDEX'),
-                    timestamp=datetime.fromisoformat(r.get('timeStamp')) if 'timeStamp' in r else None)
-            except (IrcelineApiError, ClientResponseError, IndexError):
-                result[feature] = FeatureValue(value=None, timestamp=None)
+        tasks = [asyncio.create_task(self._get_single_feature(base_querystring, feature)) for feature in features]
+        results = await asyncio.gather(*tasks)
 
+        for r in results:
+            result |= r
+
+        return result
+
+    async def _get_single_feature(self, base_querystring: dict, feature: RioIfdmFeature) -> dict:
+        result = dict()
+        querystring = base_querystring | {"layers": f"{feature}", "query_layers": f"{feature}"}
+        try:
+            r: ClientResponse = await self._api_wrapper(self._base_url, querystring)
+            r: dict = await r.json()
+            result[feature] = FeatureValue(
+                value=r.get('features', [{}])[0].get('properties', {}).get('GRAY_INDEX'),
+                timestamp=datetime.fromisoformat(r.get('timeStamp')) if 'timeStamp' in r else None)
+        except (IrcelineApiError, ClientResponseError, IndexError):
+            result[feature] = FeatureValue(value=None, timestamp=None)
         return result
