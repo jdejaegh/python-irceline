@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "open-irceline"
-version = "3.0.0"
+version = "3.0.1"
 description = "Get IRCEL - CELINE air quality data 🍃 🇧🇪"
 readme = "README.md"
 authors = [{ name = "Jules Dejaeghere", email = "curable.grass491@mailer.me" }]
@@ -27,7 +27,7 @@ requires-python = ">=3.11"
 Homepage = "https://github.com/jdejaegh/python-irceline"
 
 [tool.bumpver]
-current_version = "3.0.0"
+current_version = "3.0.1"
 version_pattern = "MAJOR.MINOR.PATCH"
 commit_message = "bump version {old_version} -> {new_version}"
 tag_message = "{new_version}"
