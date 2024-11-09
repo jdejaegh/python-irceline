@@ -1,4 +1,4 @@
-aiohttp==3.9.5
+aiohttp==3.10.10
 pyproj==3.6.1
 pytest
 async-timeout==4.0.3
