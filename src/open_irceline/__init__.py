@@ -3,4 +3,4 @@ from .data import RioFeature, ForecastFeature, FeatureValue, RioIfdmFeature
 from .forecast import IrcelineForecastClient
 from .rio import IrcelineRioClient, IrcelineRioIfdmClient
 
-__version__ = '3.0.1'
+__version__ = '3.0.2'
